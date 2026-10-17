@@ -76,6 +76,8 @@
 /* Body */
 .project-page__body {
   display: grid;
+  /* minmax(0, 1fr) stops any one child's min-content from widening the page */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-7);
   padding-top: var(--space-6);
 }

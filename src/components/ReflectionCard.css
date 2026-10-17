@@ -18,6 +18,7 @@
 
 .reflection__head {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
   gap: var(--space-4);
