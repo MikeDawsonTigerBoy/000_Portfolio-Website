@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import './TitleBlock.css'
 
+const year = new Date().getFullYear()
+
 // Footer drawn as an architectural title block.
 function TitleBlock() {
-  const year = new Date().getFullYear()
-
   return (
     <footer className="title-block container">
       <dl className="title-block__grid">
