@@ -1,0 +1,106 @@
+import { expect, test } from '@playwright/test'
+
+const isMobile = (testInfo) => testInfo.project.use.isMobile === true
+
+// Scroll to the bottom so every <Reveal> block fades in, then back to the top.
+async function revealAll(page) {
+  await page.evaluate(async () => {
+    for (let y = 0; y < document.body.scrollHeight; y += window.innerHeight / 2) {
+      window.scrollTo(0, y)
+      await new Promise((resolve) => setTimeout(resolve, 50))
+    }
+    window.scrollTo(0, 0)
+  })
+}
+
+// Nothing may lay out wider than the device width.
+// Compares against the <html> box (the layout viewport) rather than window.innerWidth:
+// mobile Chromium widens innerWidth to fit overflowing content, and WebKit's iPhone
+// emulation on Windows reports innerWidth ~20px narrower than the width it lays out at.
+async function expectNoHorizontalScroll(page) {
+  const { scrollWidth, viewportWidth } = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    viewportWidth: document.documentElement.getBoundingClientRect().width,
+  }))
+  expect(scrollWidth, 'page scrolls sideways').toBeLessThanOrEqual(Math.ceil(viewportWidth))
+}
+
+// Full-page screenshot, saved per profile under screenshots/ and attached to the report.
+async function screenshot(page, testInfo, name) {
+  await revealAll(page)
+  await page.waitForTimeout(800)
+  const path = `screenshots/${testInfo.project.name}/${name}.png`
+  await page.screenshot({ path, fullPage: true })
+  await testInfo.attach(name, { path, contentType: 'image/png' })
+}
+
+test('home has three entry cards', async ({ page }, testInfo) => {
+  await page.goto('/')
+  const cards = page.locator('a.entry-card')
+  await expect(cards).toHaveCount(3)
+  for (const path of ['/product', '/music', '/art']) {
+    await expect(page.locator(`a.entry-card[href="${path}"]`)).toBeVisible()
+  }
+  await expectNoHorizontalScroll(page)
+  await screenshot(page, testInfo, 'home')
+})
+
+test('product lists prototypes 001–010', async ({ page }, testInfo) => {
+  await page.goto('/product')
+  const cards = page.locator('a.project-card')
+  await expect(cards).toHaveCount(10)
+  for (let n = 1; n <= 10; n++) {
+    const number = String(n).padStart(3, '0')
+    await expect(page.locator(`a.project-card[href="/product/${number}"]`)).toHaveCount(1)
+  }
+  await expectNoHorizontalScroll(page)
+  await screenshot(page, testInfo, 'product')
+})
+
+test('project 004 previews for the visitor’s device', async ({ page }, testInfo) => {
+  await page.goto('/product/004')
+  await expect(page.getByRole('heading', { level: 1, name: 'Shazanguage' })).toBeVisible()
+
+  if (isMobile(testInfo)) {
+    // Phones get a launch panel for their own platform, never device frames.
+    await expect(page.locator('.device-frame')).toHaveCount(0)
+    await expect(page.locator('.device-launch')).toBeVisible()
+    const phone = testInfo.project.name.startsWith('iphone') ? 'iPhone' : 'Android phone'
+    await expect(page.locator('.device-launch__label')).toHaveText(`On your ${phone}`)
+  } else {
+    await expect(page.locator('.device-launch')).toHaveCount(0)
+    const iphoneTab = page.getByRole('tab', { name: 'iPhone' })
+    const androidTab = page.getByRole('tab', { name: 'Android' })
+    await expect(iphoneTab).toHaveAttribute('aria-selected', 'true')
+    await expect(page.locator('.device-frame--ios')).toBeVisible()
+
+    await androidTab.click()
+    await expect(androidTab).toHaveAttribute('aria-selected', 'true')
+    await expect(page.locator('.device-frame--android')).toBeVisible()
+    await expect(page.locator('.device-frame--ios')).toHaveCount(0)
+
+    await iphoneTab.click()
+    await expect(page.locator('.device-frame--ios')).toBeVisible()
+  }
+
+  await expectNoHorizontalScroll(page)
+  await screenshot(page, testInfo, 'product-004')
+})
+
+test('music links to Spotify, Apple Music and YouTube', async ({ page }, testInfo) => {
+  await page.goto('/music')
+  const links = page.locator('a.listen-row')
+  await expect(links).toHaveCount(3)
+  await expect(links.nth(0)).toHaveAttribute('href', /^https:\/\/open\.spotify\.com\//)
+  await expect(links.nth(1)).toHaveAttribute('href', /^https:\/\/music\.apple\.com\//)
+  await expect(links.nth(2)).toHaveAttribute('href', /^https:\/\/www\.youtube\.com\//)
+  await expectNoHorizontalScroll(page)
+  await screenshot(page, testInfo, 'music')
+})
+
+test('art has no sideways scroll', async ({ page }, testInfo) => {
+  await page.goto('/art')
+  await expect(page.locator('h1')).toBeVisible()
+  await expectNoHorizontalScroll(page)
+  await screenshot(page, testInfo, 'art')
+})

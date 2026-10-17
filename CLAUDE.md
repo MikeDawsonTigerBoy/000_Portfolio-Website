@@ -18,6 +18,7 @@ Guidance for Claude Code when working in this repo.
 - `npm run dev` — dev server on http://localhost:5173
 - `npm run build` — production build to `dist/`
 - `npm run lint` — oxlint
+- `npm run test:mobile` — Playwright smoke tests on iPhone 15 (WebKit), Pixel 7 (Chromium) and desktop Chromium, against the production build. First time: `npx playwright install chromium webkit`. Screenshots land in `screenshots/<profile>/`. Runs on every PR via `.github/workflows/mobile-tests.yml`.
 
 ## Site structure
 
@@ -42,6 +43,14 @@ Each project page (`/product/001` … `/product/010`) shows:
 - **On phones:** a button that opens `iosUrl` or `androidUrl`, falling back to `demoUrl`.
 - **At the end:** a Reflection card with at most 5 lessons, from `reflections`.
 
+## Testing on real devices
+
+Playwright runs on every PR, but check real phones before merging layout changes:
+
+- **Android:** Android Studio's emulator is free and runs on Windows. Create a Pixel device in Device Manager, start it, and open the PR's Vercel preview URL in Chrome.
+- **iPhone:** open the PR's Vercel preview URL on a real iPhone in Safari.
+- **Caveat:** Playwright's WebKit is close to iOS Safari but isn't the same browser. Apple's iOS Simulator needs macOS, so a real iPhone is the final check. On Windows, WebKit's iPhone emulation also reports the viewport about 20px too narrow, which clips the right edge of local screenshots. The Linux CI screenshots are accurate.
+
 ## Rules
 
 - **Start from the latest `main`.** At the start of every session, before doing anything else, run `git checkout main && git pull`. If there are uncommitted changes or unpushed commits, don't switch: say what's there and ask first. In a worktree where `main` is checked out elsewhere, run `git fetch origin` and branch from `origin/main`.
@@ -59,3 +68,5 @@ Each project page (`/product/001` … `/product/010`) shows:
 | SCRUM-9 | Home page |
 | SCRUM-10 | Product cards |
 | SCRUM-27 | Music section |
+| SCRUM-28 | Prototype pages (device preview, Reflection card) |
+| SCRUM-29 | Mobile-browser testing (Playwright, CI) |
