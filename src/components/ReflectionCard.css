@@ -1,0 +1,80 @@
+.reflection {
+  position: relative;
+  padding: var(--space-5);
+  border: var(--line);
+  background: var(--color-bg);
+}
+
+/* Highlighter corner tab, like a flagged sheet */
+.reflection::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(225deg, var(--highlighter) 50%, transparent 50%);
+}
+
+.reflection__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--line);
+}
+
+.reflection__title {
+  font-size: var(--text-2xl);
+}
+
+.reflection__count {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  padding-right: var(--space-6);
+}
+
+.reflection__empty {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.reflection__list {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reflection__item {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-3);
+  min-height: 3rem;
+  padding: var(--space-3) 0;
+  border-bottom: var(--line-faint);
+}
+
+.reflection__item:last-child,
+.reflection__item--blank {
+  border-bottom: 0;
+}
+
+.reflection__number {
+  color: var(--color-accent);
+}
+
+.reflection__text {
+  font-size: var(--text-md);
+  line-height: 1.45;
+}
+
+/* Blank slot: a dashed writing line */
+.reflection__item--blank .reflection__text {
+  align-self: end;
+  height: 1px;
+  background-image: linear-gradient(to right, var(--rule-strong) 50%, transparent 50%);
+  background-size: 8px 1px;
+}

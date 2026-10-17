@@ -29,6 +29,19 @@ Guidance for Claude Code when working in this repo.
 | Art | Visual / architectural work |
 | About / Contact | Background, CV, how to get in touch |
 
+## Prototype formats
+
+Decided in SCRUM-28. Set per project as `format` in `src/data/projects.js`.
+
+- **Expo (React Native) by default.** One codebase builds iOS, Android and web. Its web build is what runs in the portfolio's phone frames. Test it on a phone with Expo Go.
+- **Plain React web for dashboard-style tools:** 005 Financial Behaviour Analysis Tool and 009 Air City.
+- **010 Tonicity is an Ableton plugin.** It gets a video demo, not a phone preview.
+
+Each project page (`/product/001` … `/product/010`) shows:
+- **On desktop:** iPhone and Android frames running `demoUrl`.
+- **On phones:** a button that opens `iosUrl` or `androidUrl`, falling back to `demoUrl`.
+- **At the end:** a Reflection card with at most 5 lessons, from `reflections`.
+
 ## Rules
 
 - **Start from the latest `main`.** At the start of every session, before doing anything else, run `git checkout main && git pull`. If there are uncommitted changes or unpushed commits, don't switch: say what's there and ask first. In a worktree where `main` is checked out elsewhere, run `git fetch origin` and branch from `origin/main`.
