@@ -28,6 +28,19 @@
   text-decoration: underline;
 }
 
+/* Concept diagram floats top-right of the hero and plays on hover */
+.project-hero__diagram {
+  position: absolute;
+  top: calc(var(--space-6) + var(--space-7));
+  right: calc(var(--gutter) + var(--space-6));
+}
+
+@media (max-width: 900px) {
+  .project-hero__diagram {
+    display: none;
+  }
+}
+
 /* Oversized outline number sitting behind the title */
 .project-hero__number {
   position: absolute;

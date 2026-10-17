@@ -68,13 +68,37 @@
   border-bottom: 1px solid currentColor;
 }
 
+.project-card__hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.project-card__diagram {
+  flex: none;
+  margin-right: var(--space-3);
+}
+
 .project-card__number {
   font-size: clamp(4rem, 8vw, 6.5rem);
   transform-origin: left bottom;
   transition: transform var(--dur-base) var(--ease-out);
 }
 
-.project-card:hover .project-card__number {
+.project-card:hover .project-card__hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.project-card__diagram {
+  flex: none;
+  margin-right: var(--space-3);
+}
+
+.project-card__number {
   transform: scale(1.08);
 }
 
