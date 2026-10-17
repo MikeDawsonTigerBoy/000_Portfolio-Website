@@ -1,0 +1,175 @@
+.device-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  --scale: 0.7;
+}
+
+@media (max-height: 900px) {
+  .device-preview {
+    --scale: 0.6;
+  }
+}
+
+/* iPhone / Android switch */
+.device-preview__toggle {
+  display: inline-flex;
+  border: var(--line);
+}
+
+.device-preview__tab {
+  padding: var(--space-2) var(--space-5);
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.device-preview__tab + .device-preview__tab {
+  border-left: var(--line);
+}
+
+.device-preview__tab[aria-selected='true'] {
+  background: var(--section-product);
+  color: var(--section-product-on);
+}
+
+.device-preview__tab:not([aria-selected='true']):hover {
+  background: var(--color-surface);
+}
+
+/* The phone body. Sizes come from the real screen size times --scale. */
+.device-frame {
+  --bezel: 12px;
+  --radius: 52px;
+  position: relative;
+  padding: var(--bezel);
+  border-radius: calc(var(--radius) + var(--bezel));
+  background: var(--ink);
+  box-shadow:
+    0 0 0 1px var(--ink-soft),
+    0 30px 60px -30px rgb(27 26 23 / 0.6);
+  animation: device-in var(--dur-slow) var(--ease-out) both;
+}
+
+.device-frame--android {
+  --bezel: 9px;
+  --radius: 34px;
+}
+
+@keyframes device-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) rotate(-2deg);
+  }
+}
+
+.device-frame__screen {
+  position: relative;
+  width: calc(var(--screen-w) * var(--scale) * 1px);
+  height: calc(var(--screen-h) * var(--scale) * 1px);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--paper);
+}
+
+/* Full-size viewport, scaled down to fit the frame */
+.device-frame__viewport {
+  width: calc(var(--screen-w) * 1px);
+  height: calc(var(--screen-h) * 1px);
+  transform: scale(var(--scale));
+  transform-origin: top left;
+}
+
+.device-frame__viewport iframe {
+  display: block;
+  border: 0;
+  background: #fff;
+}
+
+/* iPhone: Dynamic Island. Android: punch-hole camera. */
+.device-frame__camera {
+  position: absolute;
+  top: calc(11px * var(--scale));
+  left: 50%;
+  width: calc(124px * var(--scale));
+  height: calc(36px * var(--scale));
+  border-radius: 999px;
+  background: #000;
+  transform: translateX(-50%);
+}
+
+.device-frame--android .device-frame__camera {
+  top: calc(14px * var(--scale));
+  width: calc(26px * var(--scale));
+  height: calc(26px * var(--scale));
+}
+
+/* Placeholder screen until a demo URL exists */
+.device-frame__pending {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-4);
+  height: 100%;
+  padding: 48px 32px;
+  color: var(--section-product-on);
+  background:
+    linear-gradient(to right, rgb(255 255 255 / 0.12) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(to bottom, rgb(255 255 255 / 0.12) 1px, transparent 1px) 0 0 / 32px 32px,
+    var(--section-product);
+}
+
+.device-frame__pending .mono {
+  font-size: 16px;
+}
+
+.device-frame__pending-title {
+  font-size: 52px;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.device-preview__caption {
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Phone visitors: one big launch button */
+.device-launch {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border: var(--line);
+  background: var(--color-bg);
+}
+
+.device-launch__label {
+  color: var(--color-text-muted);
+}
+
+.device-launch__button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--section-product);
+  color: var(--section-product-on);
+  font-size: var(--text-xl);
+  text-decoration: none;
+}
+
+.device-launch__pending {
+  font-size: var(--text-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .device-frame {
+    animation: none;
+  }
+}

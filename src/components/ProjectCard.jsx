@@ -1,12 +1,14 @@
+import { Link } from 'react-router-dom'
+import { formats } from '../data/projects.js'
 import './ProjectCard.css'
 
-// A numbered drawing-sheet card linking out to a project's GitHub repo.
+// A numbered drawing-sheet card linking to a prototype's page.
 function ProjectCard({ project }) {
   return (
-    <a className="project-card" href={project.url} target="_blank" rel="noopener noreferrer">
+    <Link className="project-card" to={project.path}>
       <div className="project-card__head mono">
         <span>PRJ</span>
-        <span>GitHub ↗</span>
+        <span>{formats[project.format].label}</span>
       </div>
       <span className="project-card__number display">{project.number}</span>
       <div className="project-card__body">
@@ -15,13 +17,12 @@ function ProjectCard({ project }) {
         <p className="project-card__summary">{project.summary}</p>
       </div>
       <div className="project-card__foot mono">
-        <span className="project-card__repo">{project.repo}</span>
+        <span className="project-card__repo">View prototype</span>
         <span className="project-card__arrow" aria-hidden="true">
           →
         </span>
       </div>
-      <span className="sr-only">(opens GitHub in a new tab)</span>
-    </a>
+    </Link>
   )
 }
 
