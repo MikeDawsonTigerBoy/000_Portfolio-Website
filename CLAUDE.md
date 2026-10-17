@@ -31,6 +31,7 @@ Guidance for Claude Code when working in this repo.
 
 ## Rules
 
+- **Start from the latest `main`.** At the start of every session, before doing anything else, run `git checkout main && git pull`. If there are uncommitted changes or unpushed commits, don't switch: say what's there and ask first. In a worktree where `main` is checked out elsewhere, run `git fetch origin` and branch from `origin/main`.
 - **Jira key first.** Branch names and commit messages start with the Jira key, e.g. branch `SCRUM-9-home-page`, commit `SCRUM-9 Add home page entry points`.
 - **Jira comments.** Start every Jira comment with `(via Claude)`.
 - **Never push to `main`.** Work on a branch and open a PR to `main`. Merging the PR is what deploys.
