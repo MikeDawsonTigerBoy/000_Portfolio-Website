@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import Home from './pages/Home.jsx'
+import Music from './pages/Music.jsx'
 import Product from './pages/Product.jsx'
 import SectionPage from './pages/SectionPage.jsx'
 
@@ -10,7 +11,7 @@ function App() {
       <Route element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="product" element={<Product />} />
-        <Route path="music" element={<SectionPage id="music" />} />
+        <Route path="music" element={<Music />} />
         <Route path="art" element={<SectionPage id="art" />} />
         <Route path="about" element={<SectionPage id="about" />} />
         <Route path="*" element={<Home />} />

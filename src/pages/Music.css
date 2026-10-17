@@ -1,0 +1,42 @@
+.music {
+  padding-top: var(--space-7);
+}
+
+.music__head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-2);
+}
+
+.music__head h2 {
+  font: inherit;
+}
+
+.music__list {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: var(--line);
+  background: var(--color-line);
+}
+
+.music__player {
+  margin-top: var(--space-7);
+}
+
+.music__player iframe {
+  display: block;
+  border: var(--line);
+  border-radius: 0;
+  background: var(--color-surface);
+}
+
+/* Spotify switches to its compact player on narrow screens */
+@media (max-width: 480px) {
+  .music__player iframe {
+    height: 152px;
+  }
+}

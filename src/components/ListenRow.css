@@ -1,0 +1,117 @@
+.listen-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--space-4);
+  color: var(--color-text);
+  background: var(--color-bg);
+  text-decoration: none;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color var(--dur-base) var(--ease-draft);
+}
+
+/* Flood wipes in from the left, like a playhead */
+.listen-row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--section-music);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-draft);
+}
+
+.listen-row:hover,
+.listen-row:focus-visible {
+  color: var(--section-music-on);
+}
+
+.listen-row:hover::before,
+.listen-row:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.listen-row:focus-visible {
+  outline-offset: -4px;
+}
+
+.listen-row__name {
+  font-size: var(--text-2xl);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.listen-row:hover .listen-row__name {
+  transform: translateX(12px);
+}
+
+.listen-row__eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 36px;
+}
+
+.listen-row__eq span {
+  width: 3px;
+  height: 100%;
+  background: currentColor;
+  transform-origin: bottom;
+  transform: scaleY(calc(0.15 + 0.06 * var(--bar)));
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.listen-row:hover .listen-row__eq span,
+.listen-row:focus-visible .listen-row__eq span {
+  animation: listen-eq 900ms ease-in-out infinite alternate;
+  animation-delay: calc(var(--bar) * -137ms);
+}
+
+@keyframes listen-eq {
+  0% {
+    transform: scaleY(0.15);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0.4);
+  }
+}
+
+.listen-row__action {
+  white-space: nowrap;
+}
+
+.listen-row__arrow {
+  display: inline-block;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.listen-row:hover .listen-row__arrow {
+  transform: translate(4px, -4px);
+}
+
+@media (max-width: 720px) {
+  .listen-row {
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    gap: var(--space-3);
+  }
+
+  .listen-row__eq {
+    display: none;
+  }
+
+  .listen-row__action {
+    grid-column: 2 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .listen-row:hover .listen-row__eq span {
+    animation: none;
+  }
+}
