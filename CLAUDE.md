@@ -34,6 +34,7 @@ Guidance for Claude Code when working in this repo.
 - **Jira key first.** Branch names and commit messages start with the Jira key, e.g. branch `SCRUM-9-home-page`, commit `SCRUM-9 Add home page entry points`.
 - **Jira comments.** Start every Jira comment with `(via Claude)`.
 - **Never push to `main`.** Work on a branch and open a PR to `main`. Merging the PR is what deploys.
+- **Clean up merged branches.** After a PR is merged, delete its branch locally and on GitHub. The repo auto-deletes head branches on merge, so check it's gone (`git fetch --prune`) and delete the local copy with `git branch -d <branch>`.
 
 ## Jira map
 
