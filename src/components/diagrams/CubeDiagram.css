@@ -1,0 +1,197 @@
+/*
+ * --cube sets the overall size. One cycle: flat grid → pivot to 3D → layers
+ * turn → layers unwind → back to flat. Plays while a parent has .is-playing.
+ */
+.cube-scene {
+  /* Size comes from --cube on a parent (ConceptDiagram sets it), else 120px */
+  --size: var(--cube, 120px);
+  --u: calc(var(--size) / 3);
+  --half: calc(var(--size) / 2);
+  --cycle: 5.2s;
+  width: var(--size);
+  height: var(--size);
+  perspective: calc(var(--size) * 6);
+}
+
+.cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.cube__layer {
+  position: absolute;
+  left: 0;
+  width: var(--size);
+  height: var(--u);
+  transform-style: preserve-3d;
+}
+
+.cube__layer--top {
+  top: 0;
+}
+
+.cube__layer--middle {
+  top: var(--u);
+}
+
+.cube__layer--bottom {
+  top: calc(var(--u) * 2);
+}
+
+/* Faces */
+.cube__face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  backface-visibility: hidden;
+}
+
+.cube__face--front {
+  transform: translateZ(var(--half));
+  --sticker: var(--paper);
+}
+
+.cube__face--right {
+  transform: rotateY(90deg) translateZ(var(--half));
+  --sticker: var(--highlighter);
+}
+
+.cube__face--back {
+  transform: rotateY(180deg) translateZ(var(--half));
+  --sticker: var(--ink-soft);
+}
+
+.cube__face--left {
+  transform: rotateY(-90deg) translateZ(var(--half));
+  --sticker: var(--terracotta);
+}
+
+.cube__face--up,
+.cube__face--down {
+  top: calc((var(--u) - var(--size)) / 2);
+  height: var(--size);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.cube__face--up {
+  transform: rotateX(90deg) translateZ(calc(var(--u) / 2));
+  --sticker: var(--paper-deep);
+}
+
+.cube__face--down {
+  transform: rotateX(-90deg) translateZ(calc(var(--u) / 2));
+  --sticker: var(--paper-deep);
+}
+
+.cube__face--core {
+  background: var(--ink);
+}
+
+.cube__sticker {
+  background: var(--sticker);
+  outline: 1px solid var(--ink);
+  outline-offset: -0.5px;
+}
+
+/* Flat state: only the front shows, as a plain line-drawn grid */
+.cube__face--front .cube__sticker {
+  background: transparent;
+  transition: background var(--dur-base) var(--ease-out);
+}
+
+/* At rest only the front exists, so the edge-on faces don't draw stray lines */
+.concept-diagram:not(.is-playing) .cube__face:not(.cube__face--front) {
+  visibility: hidden;
+}
+
+/* Play */
+.is-playing .cube {
+  animation: cube-pivot var(--cycle) var(--ease-draft) infinite;
+}
+
+.is-playing .cube__face--front .cube__sticker {
+  background: var(--sticker);
+}
+
+.is-playing .cube__layer--top {
+  animation: cube-turn-top var(--cycle) var(--ease-draft) infinite;
+}
+
+.is-playing .cube__layer--middle {
+  animation: cube-turn-middle var(--cycle) var(--ease-draft) infinite;
+}
+
+.is-playing .cube__layer--bottom {
+  animation: cube-turn-bottom var(--cycle) var(--ease-draft) infinite;
+}
+
+@keyframes cube-pivot {
+  0%,
+  6% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  20%,
+  80% {
+    transform: rotateX(-28deg) rotateY(-38deg);
+  }
+  94%,
+  100% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+}
+
+@keyframes cube-turn-top {
+  0%,
+  22% {
+    transform: rotateY(0deg);
+  }
+  34%,
+  62% {
+    transform: rotateY(90deg);
+  }
+  74%,
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes cube-turn-middle {
+  0%,
+  30% {
+    transform: rotateY(0deg);
+  }
+  42%,
+  62% {
+    transform: rotateY(-90deg);
+  }
+  74%,
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes cube-turn-bottom {
+  0%,
+  38% {
+    transform: rotateY(0deg);
+  }
+  50%,
+  62% {
+    transform: rotateY(180deg);
+  }
+  74%,
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-playing .cube,
+  .is-playing .cube__layer {
+    animation: none;
+  }
+}

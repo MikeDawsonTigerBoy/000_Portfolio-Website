@@ -22,6 +22,7 @@ export const MAX_REFLECTIONS = 5
  *   androidUrl  – Android-specific link (Play Store, Expo Go, APK); used on Android phones
  *   videoUrl    – demo video, for plugins
  *   reflections – up to 5 lessons learned building it
+ *   diagram     – concept diagram that plays on hover (see components/diagrams); defaults to 'cube'
  */
 const rawProjects = [
   { number: '001', title: 'Decision Memory Layer', repo: '001_Decision-Memory-Layer', format: 'expo' },
@@ -58,6 +59,7 @@ export const projects = rawProjects.map((project) => {
 
   return {
     summary: 'Write-up coming soon.',
+    diagram: 'cube',
     ...project,
     path: `/product/${project.number}`,
     url: `${GITHUB}/${project.repo}`,
