@@ -1,0 +1,106 @@
+.entry-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-6);
+  min-height: clamp(420px, 60vh, 620px);
+  padding: var(--space-5);
+  color: var(--color-text);
+  text-decoration: none;
+  background: var(--color-bg);
+  overflow: hidden;
+  isolation: isolate;
+  transition: color var(--dur-base) var(--ease-draft);
+}
+
+/* Colour flood rising from the base line */
+.entry-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--flood);
+  transform: translateY(101%);
+  transition: transform var(--dur-base) var(--ease-draft);
+}
+
+.entry-card:hover,
+.entry-card:focus-visible {
+  color: var(--flood-on);
+}
+
+.entry-card:hover::before,
+.entry-card:focus-visible::before {
+  transform: translateY(0);
+}
+
+.entry-card:focus-visible {
+  outline-offset: -4px;
+}
+
+.entry-card__top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.entry-card__meta {
+  opacity: 0.7;
+}
+
+.entry-card__glyph {
+  width: min(55%, 200px);
+  align-self: center;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.entry-card:hover .entry-card__glyph {
+  transform: rotate(-4deg) scale(1.06);
+}
+
+.entry-card__title {
+  font-size: var(--text-2xl);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.entry-card:hover .entry-card__title {
+  transform: translateX(6px);
+}
+
+.entry-card__summary {
+  margin-top: var(--space-3);
+  max-width: 32ch;
+  font-size: var(--text-sm);
+}
+
+.entry-card__cta {
+  display: inline-flex;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  padding-top: var(--space-2);
+  border-top: 1px solid currentColor;
+  width: 100%;
+}
+
+.entry-card__arrow {
+  margin-left: auto;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.entry-card:hover .entry-card__arrow {
+  transform: translateX(6px);
+}
+
+@media (max-width: 720px) {
+  .entry-card {
+    min-height: 320px;
+  }
+
+  .entry-card__glyph {
+    width: 120px;
+    align-self: flex-end;
+    position: absolute;
+    top: var(--space-7);
+    right: var(--space-5);
+  }
+}

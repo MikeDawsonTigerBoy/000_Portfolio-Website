@@ -1,0 +1,16 @@
+.section-page {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding-top: var(--space-6);
+}
+
+.section-page__status {
+  color: var(--color-text-muted);
+}
+
+.section-page__back {
+  text-decoration: none;
+  border-bottom: var(--line);
+}

@@ -1,0 +1,18 @@
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.grid-overlay__inner {
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--color-grid) 0 1px,
+    transparent 1px calc((100% - 1px) / var(--grid-cols))
+  );
+  background-clip: content-box;
+  border-right: var(--line-faint);
+  background-origin: content-box;
+}
