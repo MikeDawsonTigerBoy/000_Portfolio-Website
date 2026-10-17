@@ -2,6 +2,7 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import DevicePreview from '../components/DevicePreview.jsx'
 import ReflectionCard from '../components/ReflectionCard.jsx'
 import Reveal from '../components/Reveal.jsx'
+import ConceptDiagram from '../components/diagrams/ConceptDiagram.jsx'
 import { findProject, formats, projects } from '../data/projects.js'
 import './ProjectPage.css'
 
@@ -18,7 +19,7 @@ function ProjectPage() {
 
   return (
     <article className="project-page">
-      <header className="project-hero">
+      <header className="project-hero" data-diagram-host>
         <div className="project-hero__inner container">
           <div className="project-hero__label mono">
             <Link to="/product">← Product</Link>
@@ -27,6 +28,7 @@ function ProjectPage() {
             </span>
           </div>
           <span className="project-hero__number display">{project.number}</span>
+          <ConceptDiagram type={project.diagram} size={180} className="project-hero__diagram" />
           <h1 className="project-hero__title display">{project.title}</h1>
           {project.subtitle && <p className="mono project-hero__subtitle">{project.subtitle}</p>}
           <p className="project-hero__summary">{project.summary}</p>
