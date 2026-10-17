@@ -1,0 +1,73 @@
+.section-hero {
+  position: relative;
+  background: var(--flood);
+  color: var(--flood-on);
+  overflow: hidden;
+  animation: section-flood var(--dur-slow) var(--ease-draft) both;
+}
+
+@keyframes section-flood {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.section-hero__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-5);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-7);
+}
+
+.section-hero__label {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid currentColor;
+}
+
+.section-hero__title {
+  font-size: var(--text-display);
+  animation: section-title-rise var(--dur-slow) var(--ease-out) 200ms both;
+}
+
+@keyframes section-title-rise {
+  from {
+    transform: translateY(40%);
+    opacity: 0;
+  }
+}
+
+.section-hero__glyph {
+  width: clamp(80px, 14vw, 180px);
+  align-self: end;
+  animation: section-spin 24s linear infinite;
+}
+
+@keyframes section-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.section-hero__body {
+  grid-column: 1 / -1;
+  max-width: 48ch;
+  font-size: var(--text-lg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-hero,
+  .section-hero__title,
+  .section-hero__glyph {
+    animation: none;
+  }
+}

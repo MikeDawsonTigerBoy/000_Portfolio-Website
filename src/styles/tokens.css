@@ -1,0 +1,90 @@
+/*
+ * Blueprint paper design tokens (SCRUM-26).
+ * Warm trace paper, ink linework, terracotta accent.
+ * Each section owns a flood colour used on its own pages.
+ */
+:root {
+  /* Palette */
+  --paper: #f3eee4;
+  --paper-deep: #e9e2d4;
+  --ink: #1b1a17;
+  --ink-soft: #6b655b;
+  --rule: #e2dacb;
+  --rule-strong: #c9bfac;
+  --terracotta: #d2491a;
+  --blueprint: #1f4fd8;
+  --highlighter: #ffb800;
+
+  /* Roles */
+  --color-bg: var(--paper);
+  --color-surface: var(--paper-deep);
+  --color-text: var(--ink);
+  --color-text-muted: var(--ink-soft);
+  --color-line: var(--ink);
+  --color-grid: var(--rule);
+  --color-accent: var(--terracotta);
+
+  /* Section floods: background + the text colour that sits on it */
+  --section-product: var(--blueprint);
+  --section-product-on: var(--paper);
+  --section-music: var(--terracotta);
+  --section-music-on: var(--paper);
+  --section-art: var(--highlighter);
+  --section-art-on: var(--ink);
+  --section-about: var(--ink);
+  --section-about-on: var(--paper);
+
+  /* Typography */
+  --font-display: 'Archivo', 'Arial Narrow', sans-serif;
+  --font-body: 'Archivo', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --display-stretch: 75%;
+  --display-weight: 800;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: clamp(1.5rem, 2.5vw, 2rem);
+  --text-2xl: clamp(2.25rem, 5vw, 4rem);
+  --text-display: clamp(4rem, 15vw, 13rem);
+
+  /* Spacing (8px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 5rem;
+
+  /* Layout grid */
+  --grid-cols: 12;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max-width: 1440px;
+  --line: 1px solid var(--color-line);
+  --line-faint: 1px solid var(--color-grid);
+
+  /* Motion */
+  --ease-draft: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur-base: 360ms;
+  --dur-slow: 700ms;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --grid-cols: 4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+  }
+}

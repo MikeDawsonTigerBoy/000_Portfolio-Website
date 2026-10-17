@@ -1,0 +1,39 @@
+.dimension {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.dimension__tick {
+  width: 1px;
+  height: 14px;
+  background: currentColor;
+  flex: none;
+}
+
+.dimension__line {
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transition: transform var(--dur-slow) var(--ease-draft);
+}
+
+.dimension__line:first-of-type {
+  transform-origin: right;
+}
+
+.dimension__line:last-of-type {
+  transform-origin: left;
+}
+
+.dimension__label {
+  flex: none;
+  white-space: nowrap;
+}
+
+.is-visible .dimension__line,
+.dimension.is-visible .dimension__line {
+  transform: scaleX(1);
+}

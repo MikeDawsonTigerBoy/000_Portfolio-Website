@@ -1,0 +1,32 @@
+.glyph {
+  display: block;
+  width: 100%;
+  height: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  overflow: visible;
+}
+
+.glyph path {
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+/* Redraw the linework when the host is hovered or focused */
+.glyph-host:hover .glyph path,
+.glyph-host:focus-visible .glyph path {
+  animation: glyph-draw var(--dur-slow) var(--ease-draft) both;
+  animation-delay: calc(var(--i) * 70ms);
+}
+
+@keyframes glyph-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
