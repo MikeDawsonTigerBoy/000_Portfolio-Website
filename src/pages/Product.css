@@ -1,0 +1,51 @@
+.product {
+  padding-top: var(--space-7);
+}
+
+.product__head {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: var(--space-2);
+}
+
+.product__head h2 {
+  font: inherit;
+}
+
+.product__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: var(--line);
+  background: var(--color-line);
+}
+
+.product__cell {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+/* Odd card count: let the last card span the row so the grid closes cleanly */
+.product__cell:last-child:nth-child(3n + 1) {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 1000px) {
+  .product__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .product__cell:last-child:nth-child(3n + 1) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .product__grid {
+    grid-template-columns: 1fr;
+  }
+}
