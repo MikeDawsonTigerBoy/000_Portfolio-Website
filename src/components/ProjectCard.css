@@ -1,0 +1,135 @@
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  height: 100%;
+  min-height: 340px;
+  padding: var(--space-4);
+  color: var(--color-text);
+  background: var(--color-bg);
+  text-decoration: none;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color var(--dur-base) var(--ease-draft);
+}
+
+/* Blueprint flood, plus a fine grid that slides in over it */
+.project-card::before,
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transition: transform var(--dur-base) var(--ease-draft);
+}
+
+.project-card::before {
+  background: var(--section-product);
+  transform: translateY(101%);
+}
+
+.project-card::after {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0;
+  transform: translate(-24px, -24px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+
+.project-card:hover,
+.project-card:focus-visible {
+  color: var(--section-product-on);
+}
+
+.project-card:hover::before,
+.project-card:focus-visible::before {
+  transform: translateY(0);
+}
+
+.project-card:hover::after,
+.project-card:focus-visible::after {
+  opacity: 1;
+  transform: none;
+}
+
+.project-card:focus-visible {
+  outline-offset: -4px;
+}
+
+.project-card__head {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid currentColor;
+}
+
+.project-card__number {
+  font-size: clamp(4rem, 8vw, 6.5rem);
+  transform-origin: left bottom;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.project-card:hover .project-card__number {
+  transform: scale(1.08);
+}
+
+.project-card__body {
+  flex: 1;
+}
+
+.project-card__title {
+  font-family: var(--font-display);
+  font-stretch: 85%;
+  font-weight: 700;
+  font-size: var(--text-lg);
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.project-card__subtitle {
+  margin-top: var(--space-1);
+  opacity: 0.75;
+}
+
+.project-card__summary {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  opacity: 0.8;
+}
+
+.project-card__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid currentColor;
+}
+
+.project-card__repo {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.project-card__arrow {
+  margin-left: auto;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.project-card:hover .project-card__arrow {
+  transform: translateX(6px);
+}
+
+@media (max-width: 620px) {
+  .project-card {
+    min-height: 0;
+  }
+}
