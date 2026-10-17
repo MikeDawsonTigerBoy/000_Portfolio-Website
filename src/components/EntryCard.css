@@ -42,6 +42,11 @@
 .entry-card__top {
   display: flex;
   justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.entry-card__top > :last-child {
+  text-align: right;
 }
 
 .entry-card__meta {
@@ -97,10 +102,7 @@
   }
 
   .entry-card__glyph {
-    width: 120px;
+    width: 96px;
     align-self: flex-end;
-    position: absolute;
-    top: var(--space-7);
-    right: var(--space-5);
   }
 }
