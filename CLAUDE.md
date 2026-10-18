@@ -59,6 +59,8 @@ Playwright runs on every PR, but check real phones before merging layout changes
 - **Jira comments.** Start every Jira comment with `(via Claude)`.
 - **Never push to `main`.** Work on a branch and open a PR to `main`. Merging the PR is what deploys.
 - **Clean up merged branches.** After a PR is merged, delete its branch locally and on GitHub. The repo auto-deletes head branches on merge, so check it's gone (`git fetch --prune`) and delete the local copy with `git branch -d <branch>`.
+- **Mike approves every merge.** He merges on GitHub, or tells Claude to merge, after reviewing the Vercel preview. Never merge without his say-so.
+- **Close the Jira ticket on merge.** Once a PR is merged, move its Jira ticket (from the branch name) to Done without asking, then tell Mike it's done. Ask first only if the merge is substantial or looks suspicious, e.g. unexpected files, commits by someone else, or changes beyond the ticket's scope.
 
 ## Jira map
 
