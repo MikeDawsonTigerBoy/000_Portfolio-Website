@@ -42,10 +42,98 @@
   .product__cell:last-child:nth-child(3n + 1) {
     grid-column: auto;
   }
+
+  /* Two columns: a lone last card spans the row instead of leaving a dark gap */
+  .product__cell:last-child:nth-child(2n + 1) {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 620px) {
   .product__grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Under development: a plain drawing schedule */
+.product-upcoming {
+  margin-top: var(--space-8);
+}
+
+.product-upcoming__table {
+  width: 100%;
+  border-collapse: collapse;
+  border: var(--line);
+  background: var(--color-bg);
+  table-layout: fixed;
+}
+
+.product-upcoming__table th,
+.product-upcoming__table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--line-faint);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: break-word;
+}
+
+.product-upcoming__table thead th {
+  border-bottom: var(--line);
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+/* Column widths: number, name, description */
+.product-upcoming__table tr > :nth-child(1) {
+  width: 5rem;
+}
+
+.product-upcoming__table tr > :nth-child(2) {
+  width: 30%;
+}
+
+.product-upcoming__table tbody th {
+  font-family: var(--font-display);
+  font-stretch: 85%;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.product-upcoming__table tbody td:last-child {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* Phones: each row stacks, number and name on one line, description below */
+@media (max-width: 620px) {
+  .product-upcoming__table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .product-upcoming__table tbody tr {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--line-faint);
+  }
+
+  .product-upcoming__table tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  /* :nth-child(n) lifts this above the desktop column-width rules */
+  .product-upcoming__table tbody tr > :nth-child(n) {
+    width: auto;
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  .product-upcoming__table tbody td:last-child {
+    grid-column: 2;
+    margin-top: var(--space-1);
   }
 }

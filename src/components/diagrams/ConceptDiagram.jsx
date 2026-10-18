@@ -11,6 +11,7 @@ const diagrams = {
  * ancestor is hovered or focused. When the pointer leaves, it finishes the
  * current cycle before stopping, so it always comes to rest in its start state.
  */
+// `size` is px (number) or any CSS length, e.g. a calc() tied to a parent's grid.
 function ConceptDiagram({ type = 'cube', size = 120, className = '' }) {
   const ref = useRef(null)
   const stopRequested = useRef(false)
@@ -53,7 +54,7 @@ function ConceptDiagram({ type = 'cube', size = 120, className = '' }) {
     <div
       ref={ref}
       className={`concept-diagram ${playing ? 'is-playing' : ''} ${className}`}
-      style={{ '--cube': `${size}px` }}
+      style={{ '--cube': typeof size === 'number' ? `${size}px` : size }}
       onAnimationIteration={handleIteration}
     >
       <Component />

@@ -1,4 +1,6 @@
 .project-card {
+  /* One cell of the hover grid. The concept diagram is sized and placed in these cells. */
+  --card-grid: 24px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -33,9 +35,11 @@
   background-image:
     linear-gradient(to right, rgb(255 255 255 / 0.12) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(255 255 255 / 0.12) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-size: var(--card-grid) var(--card-grid);
+  /* Anchored top-right so the diagram (pinned top-right) lands on the grid lines */
+  background-position: right top;
   opacity: 0;
-  transform: translate(-24px, -24px);
+  transform: translate(calc(var(--card-grid) * -1), calc(var(--card-grid) * -1));
   transition:
     opacity var(--dur-base) var(--ease-out),
     transform var(--dur-slow) var(--ease-out);
@@ -69,15 +73,17 @@
 }
 
 .project-card__hero {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space-4);
+  /* Keep the number clear of the diagram's column on the right, and the title
+     below the cube's lowest point mid-animation, at every card width */
+  min-height: calc(var(--card-grid) * 5);
+  padding-right: calc(var(--card-grid) * 5);
 }
 
+/* 3 × 3 grid cells, sitting exactly on the hover grid: 3 cells down, 1 cell in from the right */
 .project-card__diagram {
-  flex: none;
-  margin-right: var(--space-3);
+  position: absolute;
+  top: calc(var(--card-grid) * 3);
+  right: var(--card-grid);
 }
 
 .project-card__number {
@@ -86,19 +92,7 @@
   transition: transform var(--dur-base) var(--ease-out);
 }
 
-.project-card:hover .project-card__hero {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-.project-card__diagram {
-  flex: none;
-  margin-right: var(--space-3);
-}
-
-.project-card__number {
+.project-card:hover .project-card__number {
   transform: scale(1.08);
 }
 

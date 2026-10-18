@@ -38,16 +38,25 @@ test('home has three entry cards', async ({ page }, testInfo) => {
   await page.goto('/')
   const cards = page.locator('a.entry-card')
   await expect(cards).toHaveCount(3)
-  for (const path of ['/product', '/music', '/art']) {
+  for (const path of ['/product', '/blog', '/about']) {
     await expect(page.locator(`a.entry-card[href="${path}"]`)).toBeVisible()
   }
   await expectNoHorizontalScroll(page)
   await screenshot(page, testInfo, 'home')
 })
 
-test('header nav reads About, Product, Art, Music, Blog', async ({ page }) => {
+test('header nav reads About, Product, Blog', async ({ page }) => {
   await page.goto('/')
-  await expect(page.locator('.site-header__nav a')).toHaveText(['About', 'Product', 'Art', 'Music', 'Blog'])
+  await expect(page.locator('.site-header__nav a')).toHaveText(['About', 'Product', 'Blog'])
+})
+
+// Art and Music stay in the code but are hidden on the deployed site (SCRUM-35).
+test('art and music are hidden and send visitors home', async ({ page }) => {
+  for (const path of ['/art', '/music']) {
+    await page.goto(path)
+    await expect(page).toHaveURL(/\/$/)
+    await expect(page.locator(`a[href="${path}"]`)).toHaveCount(0)
+  }
 })
 
 test('about page lists email and LinkedIn contacts', async ({ page }, testInfo) => {
@@ -66,14 +75,23 @@ test('blog page loads', async ({ page }) => {
   await expectNoHorizontalScroll(page)
 })
 
-test('product lists prototypes 001–010', async ({ page }, testInfo) => {
+test('product shows 001, 002 and 004, with the rest under development', async ({ page }, testInfo) => {
   await page.goto('/product')
   const cards = page.locator('a.project-card')
-  await expect(cards).toHaveCount(10)
-  for (let n = 1; n <= 10; n++) {
-    const number = String(n).padStart(3, '0')
+  await expect(cards).toHaveCount(3)
+  for (const number of ['001', '002', '004']) {
     await expect(page.locator(`a.project-card[href="/product/${number}"]`)).toHaveCount(1)
   }
+
+  const rows = page.locator('.product-upcoming__table tbody tr')
+  await expect(rows).toHaveCount(7)
+  await expect(rows.first().locator('td').first()).toHaveText('003')
+  await expect(page.locator('.product-upcoming__table')).toContainText('Air City')
+
+  // Unfeatured prototypes have no page of their own yet
+  await page.goto('/product/009')
+  await expect(page).toHaveURL(/\/product$/)
+  await page.goto('/product')
   await expectNoHorizontalScroll(page)
   await screenshot(page, testInfo, 'product')
 })
@@ -106,22 +124,4 @@ test('project 004 previews for the visitor’s device', async ({ page }, testInf
 
   await expectNoHorizontalScroll(page)
   await screenshot(page, testInfo, 'product-004')
-})
-
-test('music links to Spotify, Apple Music and YouTube', async ({ page }, testInfo) => {
-  await page.goto('/music')
-  const links = page.locator('a.listen-row')
-  await expect(links).toHaveCount(3)
-  await expect(links.nth(0)).toHaveAttribute('href', /^https:\/\/open\.spotify\.com\//)
-  await expect(links.nth(1)).toHaveAttribute('href', /^https:\/\/music\.apple\.com\//)
-  await expect(links.nth(2)).toHaveAttribute('href', /^https:\/\/www\.youtube\.com\//)
-  await expectNoHorizontalScroll(page)
-  await screenshot(page, testInfo, 'music')
-})
-
-test('art has no sideways scroll', async ({ page }, testInfo) => {
-  await page.goto('/art')
-  await expect(page.locator('h1')).toBeVisible()
-  await expectNoHorizontalScroll(page)
-  await screenshot(page, testInfo, 'art')
 })

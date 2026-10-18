@@ -13,8 +13,12 @@ function ProjectCard({ project }) {
       </div>
       <div className="project-card__hero">
         <span className="project-card__number display">{project.number}</span>
-        <ConceptDiagram type={project.diagram} size={96} className="project-card__diagram" />
       </div>
+      <ConceptDiagram
+        type={project.diagram}
+        size="calc(var(--card-grid) * 3)"
+        className="project-card__diagram"
+      />
       <div className="project-card__body">
         <h3 className="project-card__title">{project.title}</h3>
         {project.subtitle && <p className="project-card__subtitle mono">{project.subtitle}</p>}

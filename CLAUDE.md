@@ -24,12 +24,14 @@ Guidance for Claude Code when working in this repo.
 
 | Page | Purpose |
 | --- | --- |
-| Home | Landing page with three clear entry points: Product, Music, Art. Header nav order: About, Product, Art, Music, Blog. |
-| Product | AI / product prototypes, numbered cards (001–010) linking to GitHub repos |
-| Music | Releases and links to Spotify, Apple Music, YouTube |
-| Art | Visual / architectural work |
+| Home | Landing page with three entry points: the first three published sections (now Product, Blog, About). Header nav: About, Product, Blog. |
+| Product | Featured prototypes only (001, 002, 004: `featured` in `src/data/projects.js`) as cards with their own pages, then an Under development table for the rest |
+| Music | **Hidden for the MVP.** Releases and links to Spotify, Apple Music, YouTube |
+| Art | **Hidden for the MVP.** Visual / architectural work |
 | About / Contact | Background, email and LinkedIn (`src/data/contact.js`) |
 | Blog | Learnings, linked to prototypes and articles (placeholder) |
+
+**MVP focus (SCRUM-32):** the site's job is to show Mike can iterate and get hired. Art and Music stay in the code with `hidden: true` in `src/data/sections.js`: no nav link, no home card, and their URLs redirect home. To work on them locally, add `VITE_SHOW_HIDDEN_SECTIONS=true` to `.env.local` and restart `npm run dev`. Don't feature more prototypes or unhide sections unless Mike asks.
 
 ## Prototype formats
 
@@ -75,3 +77,4 @@ Playwright runs on every PR, but check real phones before merging layout changes
 | SCRUM-28 | Prototype pages (device preview, Reflection card) |
 | SCRUM-29 | Mobile-browser testing (Playwright, CI) |
 | SCRUM-31 | Contact details, Blog section, nav order |
+| SCRUM-32 | MVP focus: featured prototypes, Under development table, hide Art and Music, cube on hover grid (subtasks SCRUM-33 to SCRUM-36) |

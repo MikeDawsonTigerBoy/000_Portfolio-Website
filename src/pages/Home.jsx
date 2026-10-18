@@ -6,7 +6,7 @@ import './Home.css'
 
 const facts = [
   { value: '09', label: 'Years of international architectural delivery' },
-  { value: '10', label: 'AI product prototypes in the drawing set' },
+  { value: '03', label: 'AI prototypes in active development, seven more on the drawing board' },
   { value: '02', label: 'Cities: Cape Town 33.9°S ⇄ Berlin 52.5°N' },
 ]
 
@@ -41,7 +41,7 @@ function Home() {
         <div className="home-index__grid">
           {entrySections.map((section, index) => (
             <Reveal key={section.id} delay={index * 120} className="home-index__cell">
-              <EntryCard section={section} />
+              <EntryCard section={section} number={String(index + 1).padStart(2, '0')} />
             </Reveal>
           ))}
         </div>
