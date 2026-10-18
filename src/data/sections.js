@@ -19,15 +19,6 @@ export const sections = [
     glyph: 'grid',
   },
   {
-    id: 'music',
-    number: '02',
-    title: 'Music',
-    path: '/music',
-    summary: 'Releases as Dawson. Electronic, melodic, made between two cities.',
-    meta: 'Spotify · Apple · YouTube',
-    glyph: 'wave',
-  },
-  {
     id: 'art',
     number: '03',
     title: 'Art',
@@ -35,6 +26,15 @@ export const sections = [
     summary: 'Drawings, studies and visual work from an architect’s sketchbook.',
     meta: 'Selected works',
     glyph: 'arc',
+  },
+  {
+    id: 'music',
+    number: '02',
+    title: 'Music',
+    path: '/music',
+    summary: 'Releases as Dawson. Electronic, melodic, made between two cities.',
+    meta: 'Spotify · Apple · YouTube',
+    glyph: 'wave',
   },
   {
     id: 'blog',
