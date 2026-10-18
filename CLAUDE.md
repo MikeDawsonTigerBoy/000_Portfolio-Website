@@ -5,7 +5,7 @@ Guidance for Claude Code when working in this repo.
 ## Project context
 
 - **Owner:** Mike Dawson — registered architect (9 years of international delivery) moving into AI product management.
-- **Location:** Based in Cape Town; aiming to work in Berlin, then split time between Berlin and Cape Town ("two summers" swallow FIRE lifestyle). The site should support job hunting in Berlin.
+- **Goal:** the site supports Mike's job search for AI product roles. He is geographically mobile, so neither the site nor this repo names a location.
 - **What this is:** Mike's portfolio site, live at https://mike-dawson.vercel.app.
 - **Stack:** React 19 + Vite, linted with oxlint.
 - **Repo:** GitHub `MikeDawsonTigerBoy/000_Portfolio-Website`.
