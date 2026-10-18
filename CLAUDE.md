@@ -33,7 +33,7 @@ Guidance for Claude Code when working in this repo.
 
 **MVP focus (SCRUM-32):** the site's job is to show Mike can iterate and get hired. Art and Music stay in the code with `hidden: true` in `src/data/sections.js`: no nav link, no home card, and their URLs redirect home. To work on them locally, add `VITE_SHOW_HIDDEN_SECTIONS=true` to `.env.local` and restart `npm run dev`. Don't feature more prototypes or unhide sections unless Mike asks.
 
-**Identity (SCRUM-37):** "Mike Dawson — Product Builder Portfolio". Copy stays location-neutral: based in Cape Town, free to relocate. Don't name a target city. Section colours: Product is a warm orange `#f0711e` (black text on it), About is black, Blog is grey.
+**Identity (SCRUM-37):** "Mike Dawson — Product Builder Portfolio". Copy stays location-neutral: based in Cape Town, free to relocate. Don't name a target city. Section colours: Product is orange `#e43804` (black text on it), About is black, Blog is grey.
 
 **Cube puzzle (SCRUM-40):** the Rubik's cube uses a 9-colour palette (`--cube-*` in `tokens.css`). Each hover moves every cube one state closer to solved, from 1 (jumbled) to 4 (solved). Progress is stored in the visitor's browser under `md-cube-hovers`; see `src/components/diagrams/cubePuzzle.js`.
 
