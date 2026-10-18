@@ -3,7 +3,7 @@ import DevicePreview from '../components/DevicePreview.jsx'
 import ReflectionCard from '../components/ReflectionCard.jsx'
 import Reveal from '../components/Reveal.jsx'
 import ConceptDiagram from '../components/diagrams/ConceptDiagram.jsx'
-import { findProject, formats, projects } from '../data/projects.js'
+import { featuredProjects, findProject, formats, projects } from '../data/projects.js'
 import './ProjectPage.css'
 
 function ProjectPage() {
@@ -13,9 +13,10 @@ function ProjectPage() {
   if (!project) return <Navigate to="/product" replace />
 
   const format = formats[project.format]
-  const index = projects.indexOf(project)
-  const prev = projects[index - 1]
-  const next = projects[index + 1]
+  // Prev / next step through the featured prototypes only
+  const index = featuredProjects.indexOf(project)
+  const prev = featuredProjects[index - 1]
+  const next = featuredProjects[index + 1]
 
   return (
     <article className="project-page">

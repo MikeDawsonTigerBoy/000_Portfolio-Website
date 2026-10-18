@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
-import { sections } from '../data/sections.js'
+import { publishedSections } from '../data/sections.js'
 import './SiteHeader.css'
 
 // Header styled as the top strip of a drawing sheet.
@@ -15,7 +15,7 @@ function SiteHeader({ sheet = '000', sheetTitle = 'Index' }) {
           DWG {sheet} · {sheetTitle}
         </span>
         <nav className="site-header__nav" aria-label="Main">
-          {sections.map((section) => (
+          {publishedSections.map((section) => (
             <NavLink
               key={section.id}
               to={section.path}
