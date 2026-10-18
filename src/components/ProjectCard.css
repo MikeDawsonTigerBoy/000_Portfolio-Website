@@ -16,7 +16,7 @@
   transition: color var(--dur-base) var(--ease-draft);
 }
 
-/* The prototype's colour floods in, plus a fine white grid that slides over it */
+/* The Product orange floods in, plus a fine white grid that slides over it */
 .project-card::before,
 .project-card::after {
   content: '';
@@ -27,7 +27,7 @@
 }
 
 .project-card::before {
-  background: var(--card-colour, var(--section-product));
+  background: var(--section-product);
   transform: translateY(101%);
 }
 
@@ -47,7 +47,7 @@
 
 .project-card:hover,
 .project-card:focus-visible {
-  color: var(--card-colour-on, var(--section-product-on));
+  color: var(--section-product-on);
   /* The wireframe cube turns off-white on the colour */
   --cube-line: var(--paper);
 }

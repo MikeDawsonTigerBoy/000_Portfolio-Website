@@ -35,7 +35,7 @@ Guidance for Claude Code when working in this repo.
 
 **Identity (SCRUM-37):** "Mike Dawson — Product Builder Portfolio". No location anywhere on the site (no city, no "free to relocate"): Mike is geographically mobile. Section colours: Product is orange `#e43804` (black text on it), About is black, Blog is grey.
 
-**Prototype colours (SCRUM-40):** each prototype has a `colour` in `src/data/projects.js` (001 = Product orange, the rest are `--swatch-*` in `tokens.css`). It floods the card on hover and fills that prototype's No. cell in the Under development table. The card cube is a colourless wireframe: black lines at rest, off-white on the colour. Project-page heroes show a static off-white 3 × 3 grid spanning the title's first two lines (`src/lib/useCapGrid.js`), not the animation.
+**One orange (SCRUM-40):** everything Product uses the Product orange `#e43804`: the cards' hover flood, every prototype page and the Under development table. Don't add per-prototype colours. The card cube is a colourless wireframe: black lines at rest, off-white on the orange. Under development rows show number and name at rest; hovering or focusing a row sweeps the orange left to right and reveals the description in black. Project-page heroes show a static off-white 3 × 3 grid spanning the title's first two lines (`src/lib/useCapGrid.js`), not the animation.
 
 ## Prototype formats
 

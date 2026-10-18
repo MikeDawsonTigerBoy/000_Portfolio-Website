@@ -6,12 +6,7 @@ import './ProjectCard.css'
 // A numbered drawing-sheet card linking to a prototype's page.
 function ProjectCard({ project }) {
   return (
-    <Link
-      className="project-card"
-      to={project.path}
-      data-diagram-host
-      style={{ '--card-colour': project.colour, '--card-colour-on': project.colourOn }}
-    >
+    <Link className="project-card" to={project.path} data-diagram-host>
       <div className="project-card__head mono">
         <span>PRJ</span>
         <span>{formats[project.format].platforms}</span>

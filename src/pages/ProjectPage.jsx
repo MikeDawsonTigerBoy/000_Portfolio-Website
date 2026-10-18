@@ -22,12 +22,7 @@ function ProjectPage() {
   const next = featuredProjects[index + 1]
 
   return (
-    <article
-      className="project-page"
-      // The prototype's colour (the same as its card) runs through its whole page:
-      // hero, grid, phone-preview toggle and placeholder screen
-      style={{ '--section-product': project.colour, '--section-product-on': project.colourOn }}
-    >
+    <article className="project-page">
       <header className="project-hero">
         <div className="project-hero__inner container">
           <div className="project-hero__label mono">

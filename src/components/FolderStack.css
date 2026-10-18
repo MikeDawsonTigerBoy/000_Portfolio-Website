@@ -1,5 +1,7 @@
 /*
  * Line-drawn folders, overlapped so each one shows its tab and a strip of its body.
+ * Hovering or focusing a folder lifts it and turns it black with a 45° section
+ * hatch (as in technical drawings) and off-white text.
  *   --tab-h   tab height
  *   --body-h  folder body height
  *   --peek    how far each folder sits below the one behind it
@@ -9,6 +11,14 @@
   --body-h: 220px;
   --peek: 104px;
   --lift: 28px;
+  /* Selected: ink with a fine 45° hatch in off-white */
+  --hatch:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 9px,
+      rgb(243 238 228 / 0.18) 9px 10px
+    ),
+    var(--ink);
   margin: 0;
   padding: var(--lift) 0 0;
   list-style: none;
@@ -64,6 +74,9 @@
   padding: var(--space-4);
   border: var(--line);
   background: var(--color-bg);
+  transition:
+    background var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
 }
 
 /* Same type as the Product card titles */
@@ -106,10 +119,22 @@
 }
 
 .folder:hover .folder__tab,
+.folder:focus-visible .folder__tab,
+.folder:hover .folder__body,
+.folder:focus-visible .folder__body {
+  background: var(--hatch);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.folder:hover .folder__tab,
 .folder:focus-visible .folder__tab {
-  background: var(--section-blog);
-  color: var(--section-blog-on);
-  border-bottom-color: var(--section-blog);
+  border-bottom-color: transparent;
+}
+
+.folder:hover .folder__kicker,
+.folder:focus-visible .folder__kicker {
+  color: rgb(243 238 228 / 0.75);
 }
 
 .folder:hover .folder__date,
@@ -128,8 +153,8 @@
 }
 
 .folder:focus-visible .folder__body {
-  outline: 2px solid var(--color-accent);
-  outline-offset: -4px;
+  outline: 2px solid var(--paper);
+  outline-offset: -6px;
 }
 
 /* Touch screens and phone widths: no reliable hover, so always show the titles */

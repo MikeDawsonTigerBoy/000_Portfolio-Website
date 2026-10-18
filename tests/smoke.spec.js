@@ -127,6 +127,15 @@ test('product shows 001, 002 and 004, with the rest under development', async ({
   await expect(rows.first().locator('td').first()).toHaveText('003')
   await expect(page.locator('.product-upcoming__table')).toContainText('Air City')
 
+  // Descriptions are blank until a row is hovered (desktop); touch screens always show them
+  if (!isMobile(testInfo)) {
+    const description = rows.first().locator('.product-upcoming__description')
+    await expect(description).toHaveCSS('color', 'rgba(0, 0, 0, 0)')
+    await rows.first().hover()
+    await expect(description).toHaveCSS('color', 'rgb(27, 26, 23)')
+    await expect(rows.first().locator('td').first()).toHaveCSS('background-size', '100% 100%')
+  }
+
   // Unfeatured prototypes have no page of their own yet
   await page.goto('/product/009')
   await expect(page).toHaveURL(/\/product$/)
