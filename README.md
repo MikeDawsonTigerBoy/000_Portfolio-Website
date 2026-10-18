@@ -8,7 +8,12 @@ Live at https://mike-dawson.vercel.app
 
 ## Status
 
-Live first version, built in React and Vite and deployed on Vercel. The product cards for 001–010 exist, but most write-ups say "coming soon".
+- **Focus: active.** Live first version, built in React and Vite and deployed on Vercel.
+- **Decision (Oct 2026), less is more:** the site features three working prototypes.
+  - **001 Decision Memory Layer:** a serious problem from Mike's own field.
+  - **002 Hitchhiker's Guide to the City:** started at the hackathon.
+  - **004 Shazanguage:** Mike's own idea.
+- The other prototypes are parked and shouldn't appear as "coming soon" stubs.
 
 ## 1. Problem statement
 
@@ -57,13 +62,14 @@ The stack, hosting and tests are already in place. The real constraint is conten
 ## 9. Success metrics
 
 *(proposed)*
-- At least 3 complete case studies before the November trip to Berlin.
+- Case studies for 001, 002 and 004 are complete before the November trip to Berlin.
 - The site gets mentioned in interviews or recruiter messages.
 - Product pages are read for more than 60 seconds (needs simple analytics).
 
 ## 10. Open questions and challenges
 
-1. **Depth or breadth?** Three finished case studies (for example Decision Memory Layer, deTour and Retrogram) would probably beat ten stubs. Should unfinished prototypes be hidden until they're written up?
+1. **Depth or breadth?** *Resolved: three featured prototypes (001, 002 and 004).*
+   - Still to decide: are parked prototypes hidden completely, or shown as a short "also exploring" list?
 2. **Who comes first?** A hiring manager gives the site about 30 seconds. Should the home page lead with Product and frame Music and Art as "who I am", rather than offering three equal doors?
 3. **Is 011 Slow Craftsman on the site?** The site currently lists 001–010.
 4. **Is the story clear?** The headline is "Architect turned product thinker". Does each prototype show a skill a PM is hired for (discovery, prioritisation, metrics), or mostly building skill?
