@@ -9,7 +9,7 @@ function ProjectCard({ project }) {
     <Link className="project-card" to={project.path} data-diagram-host>
       <div className="project-card__head mono">
         <span>PRJ</span>
-        <span>{formats[project.format].label}</span>
+        <span>{formats[project.format].platforms}</span>
       </div>
       <div className="project-card__hero">
         <span className="project-card__number display">{project.number}</span>
