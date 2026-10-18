@@ -50,9 +50,12 @@ test('header nav reads About, Product, Art, Music, Blog', async ({ page }) => {
   await expect(page.locator('.site-header__nav a')).toHaveText(['About', 'Product', 'Art', 'Music', 'Blog'])
 })
 
-test('about page lists email contact', async ({ page }, testInfo) => {
+test('about page lists email and LinkedIn contacts', async ({ page }, testInfo) => {
   await page.goto('/about')
   await expect(page.locator('a.contact-row[href="mailto:mike.stuart.dawson@outlook.com"]')).toBeVisible()
+  const linkedin = page.locator('a.contact-row[href="https://www.linkedin.com/in/mike-dawson-bb4168194"]')
+  await expect(linkedin).toBeVisible()
+  await expect(linkedin).toHaveAttribute('target', '_blank')
   await expectNoHorizontalScroll(page)
   await screenshot(page, testInfo, 'about')
 })
