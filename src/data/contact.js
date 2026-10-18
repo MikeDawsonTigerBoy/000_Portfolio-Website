@@ -12,7 +12,6 @@ export const contacts = [
     number: 'B',
     name: 'LinkedIn',
     value: 'Connect on LinkedIn',
-    // TODO(SCRUM-31): add Mike's LinkedIn profile URL.
-    url: '',
+    url: 'https://www.linkedin.com/in/mike-dawson-bb4168194',
   },
 ].filter((contact) => contact.url)
