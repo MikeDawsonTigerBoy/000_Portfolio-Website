@@ -28,15 +28,26 @@
   text-decoration: underline;
 }
 
-/* Concept diagram floats top-right of the hero and plays on hover */
-.project-hero__diagram {
+/* Static 3 × 3 grid, top-right of the hero, drawn in the background's off-white */
+.project-hero__grid {
   position: absolute;
   top: calc(var(--space-6) + var(--space-7));
   right: calc(var(--gutter) + var(--space-6));
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 180px;
+  height: 180px;
+  border-top: 1px solid var(--paper);
+  border-left: 1px solid var(--paper);
+}
+
+.project-hero__grid span {
+  border-right: 1px solid var(--paper);
+  border-bottom: 1px solid var(--paper);
 }
 
 @media (max-width: 900px) {
-  .project-hero__diagram {
+  .project-hero__grid {
     display: none;
   }
 }
