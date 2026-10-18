@@ -42,27 +42,27 @@ const subscribe = (listener) => {
 export const useCubeState = () =>
   useSyncExternalStore(subscribe, () => Math.min(Math.max(hovers, 1), SOLVED_STATE))
 
-// Nine tones (tokens.css): five reference colours plus four oranges.
+// Nine tones (tokens.css): five warm oranges plus rose, coral, magenta and peach.
 export const PALETTE = [
-  'var(--cube-aubergine)',
-  'var(--cube-magenta)',
+  'var(--cube-orange)',
+  'var(--cube-burnt)',
+  'var(--cube-tan)',
+  'var(--cube-cream)',
+  'var(--cube-gold)',
   'var(--cube-rose)',
   'var(--cube-coral)',
+  'var(--cube-magenta)',
   'var(--cube-peach)',
-  'var(--cube-electric)',
-  'var(--cube-tangerine)',
-  'var(--cube-ember)',
-  'var(--cube-apricot)',
 ]
 
 // Each face's colour when solved. Front, left and up are the faces the 3D pose shows.
 const FACE_COLOURS = {
-  front: 'var(--cube-peach)',
-  left: 'var(--cube-aubergine)',
-  up: 'var(--cube-magenta)',
+  front: 'var(--cube-cream)',
+  left: 'var(--cube-magenta)',
+  up: 'var(--cube-gold)',
   right: 'var(--cube-coral)',
   back: 'var(--cube-rose)',
-  down: 'var(--cube-tangerine)',
+  down: 'var(--cube-tan)',
 }
 
 // Share of stickers out of place per state. Lower states reuse the same random

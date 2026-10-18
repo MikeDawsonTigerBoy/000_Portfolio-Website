@@ -87,7 +87,7 @@
 }
 
 .project-card__number {
-  font-size: clamp(4rem, 8vw, 6.5rem);
+  font-size: var(--project-number-size);
   transform-origin: left bottom;
   transition: transform var(--dur-base) var(--ease-out);
 }
@@ -104,7 +104,7 @@
   font-family: var(--font-display);
   font-stretch: 85%;
   font-weight: 700;
-  font-size: var(--text-lg);
+  font-size: var(--project-title-size);
   line-height: 1.15;
   text-transform: uppercase;
 }

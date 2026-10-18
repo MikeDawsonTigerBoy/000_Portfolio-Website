@@ -73,7 +73,7 @@
   padding: var(--space-3) var(--space-4);
   border-bottom: var(--line-faint);
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;
   overflow-wrap: break-word;
 }
 
@@ -83,9 +83,27 @@
   font-weight: 400;
 }
 
+/*
+ * Names are 16px against the cards' 20px titles (0.8×), so the numbers use the
+ * cards' number style scaled by the same 0.8.
+ */
+.product-upcoming__table {
+  --upcoming-scale: 0.8;
+}
+
+.product-upcoming__table tbody th {
+  font-size: calc(var(--project-title-size) * var(--upcoming-scale));
+}
+
+.product-upcoming__number {
+  font-size: calc(var(--project-number-size) * var(--upcoming-scale));
+  line-height: 0.88;
+  white-space: nowrap;
+}
+
 /* Column widths: number, name, description */
 .product-upcoming__table tr > :nth-child(1) {
-  width: 5rem;
+  width: calc(var(--project-number-size) * var(--upcoming-scale) * 2.1);
 }
 
 .product-upcoming__table tr > :nth-child(2) {
@@ -104,7 +122,13 @@
   color: var(--color-text-muted);
 }
 
-/* Phones: each row stacks, number and name on one line, description below */
+/* With collapsed borders the last row's faint divider would win over the table's
+   outline, so draw the bottom line explicitly */
+.product-upcoming__table tbody tr:last-child > * {
+  border-bottom: var(--line);
+}
+
+/* Phones: each row stacks, the number beside its name and description */
 @media (max-width: 620px) {
   .product-upcoming__table thead {
     position: absolute;
@@ -116,7 +140,9 @@
 
   .product-upcoming__table tbody tr {
     display: grid;
-    grid-template-columns: 3rem minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: var(--space-4);
     padding: var(--space-3) var(--space-4);
     border-bottom: var(--line-faint);
   }
@@ -130,6 +156,10 @@
     width: auto;
     padding: 0;
     border-bottom: 0;
+  }
+
+  .product-upcoming__table tbody td:first-child {
+    grid-row: span 2;
   }
 
   .product-upcoming__table tbody td:last-child {

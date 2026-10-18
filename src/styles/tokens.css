@@ -14,19 +14,19 @@
   --terracotta: #d2491a;
   --blueprint: #1f4fd8;
   --highlighter: #ffb800;
-  --electric-orange: #ff5414;
+  --product-orange: #f0711e;
 
-  /* Rubik's cube palette (SCRUM-40): five reference tones plus four oranges around
-     the electric orange. Warm, bright and bold. */
-  --cube-aubergine: #3a2551;
-  --cube-magenta: #9c3767;
+  /* Rubik's cube palette (SCRUM-40): the five warm orange tones from Mike's
+     reference, plus rose, coral, magenta and peach. No deep purple. */
+  --cube-orange: #f27428;
+  --cube-burnt: #e07422;
+  --cube-tan: #e09a68;
+  --cube-cream: #f8d7a8;
+  --cube-gold: #fbbf3a;
   --cube-rose: #e89a9a;
   --cube-coral: #f2545b;
+  --cube-magenta: #9c3767;
   --cube-peach: #f9d3c2;
-  --cube-electric: #ff5414;
-  --cube-tangerine: #ff8a3d;
-  --cube-ember: #c7350a;
-  --cube-apricot: #ffb37a;
 
   /* Roles */
   --color-bg: var(--paper);
@@ -38,8 +38,8 @@
   --color-accent: var(--terracotta);
 
   /* Section floods: background + the text colour that sits on it */
-  /* Product is electric orange (SCRUM-39). Black text on it stays readable. */
-  --section-product: var(--electric-orange);
+  /* Product is a warm orange (SCRUM-39). Black text on it stays readable. */
+  --section-product: var(--product-orange);
   --section-product-on: var(--ink);
   --section-music: var(--terracotta);
   --section-music-on: var(--paper);
@@ -65,6 +65,11 @@
   --text-xl: clamp(1.5rem, 2.5vw, 2rem);
   --text-2xl: clamp(2.25rem, 5vw, 4rem);
   --text-display: clamp(4rem, 15vw, 13rem);
+
+  /* Prototype number and title on the Product cards; the Under development
+     table scales both by the same ratio */
+  --project-number-size: clamp(4rem, 8vw, 6.5rem);
+  --project-title-size: var(--text-lg);
 
   /* Spacing (8px base) */
   --space-1: 0.25rem;

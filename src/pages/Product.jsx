@@ -47,7 +47,7 @@ function Product() {
           <tbody>
             {upcomingProjects.map((project) => (
               <tr key={project.repo}>
-                <td className="mono">{project.number}</td>
+                <td className="product-upcoming__number display">{project.number}</td>
                 <th scope="row">{project.title}</th>
                 <td>{project.summary}</td>
               </tr>
