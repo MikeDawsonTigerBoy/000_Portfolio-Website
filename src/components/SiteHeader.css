@@ -69,12 +69,7 @@
 
 .site-header__link:hover,
 .site-header__link.active {
-  color: var(--paper);
-}
-
-.site-header__link[href='/art']:hover,
-.site-header__link[href='/art'].active {
-  color: var(--ink);
+  color: var(--link-flood-on, var(--paper));
 }
 
 @media (max-width: 720px) {

@@ -12,8 +12,7 @@ function Music() {
     <>
       <SectionHero section={section}>
         <p>
-          I release music as <strong>Dawson</strong>. It's electronic and melodic, made between
-          Cape Town and Berlin.
+          I release music as <strong>Dawson</strong>. It's electronic and melodic.
         </p>
       </SectionHero>
 

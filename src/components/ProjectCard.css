@@ -16,7 +16,7 @@
   transition: color var(--dur-base) var(--ease-draft);
 }
 
-/* Blueprint flood, plus a fine grid that slides in over it */
+/* The Product orange floods in, plus a fine white grid that slides over it */
 .project-card::before,
 .project-card::after {
   content: '';
@@ -33,8 +33,8 @@
 
 .project-card::after {
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.12) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.12) 1px, transparent 1px);
+    linear-gradient(to right, rgb(255 255 255 / 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.3) 1px, transparent 1px);
   background-size: var(--card-grid) var(--card-grid);
   /* Anchored top-right so the diagram (pinned top-right) lands on the grid lines */
   background-position: right top;
@@ -48,6 +48,8 @@
 .project-card:hover,
 .project-card:focus-visible {
   color: var(--section-product-on);
+  /* The wireframe cube turns off-white on the colour */
+  --cube-line: var(--paper);
 }
 
 .project-card:hover::before,
@@ -87,7 +89,7 @@
 }
 
 .project-card__number {
-  font-size: clamp(4rem, 8vw, 6.5rem);
+  font-size: var(--project-number-size);
   transform-origin: left bottom;
   transition: transform var(--dur-base) var(--ease-out);
 }
@@ -104,7 +106,7 @@
   font-family: var(--font-display);
   font-stretch: 85%;
   font-weight: 700;
-  font-size: var(--text-lg);
+  font-size: var(--project-title-size);
   line-height: 1.15;
   text-transform: uppercase;
 }

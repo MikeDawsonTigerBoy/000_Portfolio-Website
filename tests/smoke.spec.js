@@ -69,10 +69,49 @@ test('about page lists email and LinkedIn contacts', async ({ page }, testInfo) 
   await screenshot(page, testInfo, 'about')
 })
 
-test('blog page loads', async ({ page }) => {
+test('blog folders open a post that slides up and closes back to the stack', async ({ page }, testInfo) => {
   await page.goto('/blog')
   await expect(page.locator('h1')).toContainText('Blog')
+  const folders = page.locator('a.folder')
+  await expect(folders).toHaveCount(3)
   await expectNoHorizontalScroll(page)
+  await screenshot(page, testInfo, 'blog')
+
+  await folders.last().click()
+  await expect(page).toHaveURL(/\/blog\/a-weekend-of-building$/)
+  const sheet = page.getByRole('dialog')
+  await expect(sheet).toBeVisible()
+  await expect(sheet.locator('h2')).toHaveText('A weekend of building')
+
+  await page.keyboard.press('Escape')
+  await expect(page).toHaveURL(/\/blog$/)
+  await expect(sheet).toHaveCount(0)
+})
+
+test('a post link opens straight into its sheet', async ({ page }) => {
+  await page.goto('/blog/claude-community-build-day')
+  await expect(page.getByRole('dialog').locator('h2')).toHaveText('Claude Community Build Day')
+  await page.goto('/blog/no-such-post')
+  await expect(page).toHaveURL(/\/blog$/)
+})
+
+// No location anywhere on the site (SCRUM-38): Mike is geographically mobile.
+// The Under development table is skipped: 008's game is set over Cape Town.
+test('no location is stated anywhere', async ({ page }) => {
+  for (const path of ['/', '/about', '/product', '/blog']) {
+    await page.goto(path)
+    const text = await page.evaluate(() => {
+      const copy = document.body.cloneNode(true)
+      copy.querySelector('.product-upcoming')?.remove()
+      return copy.textContent
+    })
+    for (const word of ['Berlin', 'Cape Town', 'relocate', 'Location']) {
+      expect(text, `${path} mentions ${word}`).not.toContain(word)
+    }
+  }
+  const footer = page.locator('.title-block')
+  await expect(footer).toContainText('Product Builder Portfolio')
+  await expect(footer).toContainText(/(January|February|March|April|May|June|July|August|September|October|November|December) \d{4}/)
 })
 
 test('product shows 001, 002 and 004, with the rest under development', async ({ page }, testInfo) => {
@@ -87,6 +126,15 @@ test('product shows 001, 002 and 004, with the rest under development', async ({
   await expect(rows).toHaveCount(7)
   await expect(rows.first().locator('td').first()).toHaveText('003')
   await expect(page.locator('.product-upcoming__table')).toContainText('Air City')
+
+  // Descriptions are blank until a row is hovered (desktop); touch screens always show them
+  if (!isMobile(testInfo)) {
+    const description = rows.first().locator('.product-upcoming__description')
+    await expect(description).toHaveCSS('color', 'rgba(0, 0, 0, 0)')
+    await rows.first().hover()
+    await expect(description).toHaveCSS('color', 'rgb(27, 26, 23)')
+    await expect(rows.first().locator('td').first()).toHaveCSS('background-size', '100% 100%')
+  }
 
   // Unfeatured prototypes have no page of their own yet
   await page.goto('/product/009')

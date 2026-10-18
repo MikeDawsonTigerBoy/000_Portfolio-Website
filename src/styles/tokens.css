@@ -14,6 +14,8 @@
   --terracotta: #d2491a;
   --blueprint: #1f4fd8;
   --highlighter: #ffb800;
+  --product-orange: #e43804;
+
 
   /* Roles */
   --color-bg: var(--paper);
@@ -25,8 +27,9 @@
   --color-accent: var(--terracotta);
 
   /* Section floods: background + the text colour that sits on it */
-  --section-product: var(--blueprint);
-  --section-product-on: var(--paper);
+  /* Product is a warm orange (SCRUM-39). Black text on it stays readable. */
+  --section-product: var(--product-orange);
+  --section-product-on: var(--ink);
   --section-music: var(--terracotta);
   --section-music-on: var(--paper);
   --section-art: var(--highlighter);
@@ -51,6 +54,11 @@
   --text-xl: clamp(1.5rem, 2.5vw, 2rem);
   --text-2xl: clamp(2.25rem, 5vw, 4rem);
   --text-display: clamp(4rem, 15vw, 13rem);
+
+  /* Prototype number and title on the Product cards; the Under development
+     table scales both by the same ratio */
+  --project-number-size: clamp(4rem, 8vw, 6.5rem);
+  --project-title-size: var(--text-lg);
 
   /* Spacing (8px base) */
   --space-1: 0.25rem;

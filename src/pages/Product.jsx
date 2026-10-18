@@ -46,10 +46,11 @@ function Product() {
           </thead>
           <tbody>
             {upcomingProjects.map((project) => (
-              <tr key={project.repo}>
-                <td className="mono">{project.number}</td>
+              // Focusable so keyboard users can reveal the description too
+              <tr key={project.repo} tabIndex={0}>
+                <td className="product-upcoming__number display">{project.number}</td>
                 <th scope="row">{project.title}</th>
-                <td>{project.summary}</td>
+                <td className="product-upcoming__description">{project.summary}</td>
               </tr>
             ))}
           </tbody>

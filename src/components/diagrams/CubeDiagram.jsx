@@ -7,12 +7,12 @@ const stickers = (count) =>
   Array.from({ length: count }, (_, index) => <span key={index} className="cube__sticker" />)
 
 /*
- * Default concept diagram: a flat 3×3 grid that pivots into a Rubik's cube,
- * turns its layers, then folds back to the flat grid.
+ * Default concept diagram: a flat 3×3 grid that pivots into a wireframe Rubik's
+ * cube, turns its layers, then folds back to the flat grid. Lines only, no fills.
  *
  * Built as three horizontal layers so each one can turn on its own. Every layer
  * has four side strips (three stickers each) plus a top and bottom face; only
- * the cube's real top and bottom carry stickers, the inner faces are the dark core.
+ * the cube's real top and bottom carry stickers.
  */
 function CubeDiagram() {
   return (
@@ -25,12 +25,8 @@ function CubeDiagram() {
                 {stickers(3)}
               </div>
             ))}
-            <div className={`cube__face cube__face--up ${layer === 'top' ? '' : 'cube__face--core'}`}>
-              {layer === 'top' && stickers(9)}
-            </div>
-            <div className={`cube__face cube__face--down ${layer === 'bottom' ? '' : 'cube__face--core'}`}>
-              {layer === 'bottom' && stickers(9)}
-            </div>
+            <div className="cube__face cube__face--up">{layer === 'top' && stickers(9)}</div>
+            <div className="cube__face cube__face--down">{layer === 'bottom' && stickers(9)}</div>
           </div>
         ))}
       </div>

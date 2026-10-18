@@ -52,22 +52,18 @@
 
 .cube__face--front {
   transform: translateZ(var(--half));
-  --sticker: var(--paper);
 }
 
 .cube__face--right {
   transform: rotateY(90deg) translateZ(var(--half));
-  --sticker: var(--highlighter);
 }
 
 .cube__face--back {
   transform: rotateY(180deg) translateZ(var(--half));
-  --sticker: var(--ink-soft);
 }
 
 .cube__face--left {
   transform: rotateY(-90deg) translateZ(var(--half));
-  --sticker: var(--terracotta);
 }
 
 .cube__face--up,
@@ -79,28 +75,18 @@
 
 .cube__face--up {
   transform: rotateX(90deg) translateZ(calc(var(--u) / 2));
-  --sticker: var(--paper-deep);
 }
 
 .cube__face--down {
   transform: rotateX(-90deg) translateZ(calc(var(--u) / 2));
-  --sticker: var(--paper-deep);
 }
 
-.cube__face--core {
-  background: var(--ink);
-}
-
+/* A colourless wireframe: only lines, black at rest and off-white on a coloured
+   card (the card sets --cube-line). */
 .cube__sticker {
-  background: var(--sticker);
-  outline: 1px solid var(--ink);
+  outline: 1px solid var(--cube-line, var(--ink));
   outline-offset: -0.5px;
-}
-
-/* Flat state: only the front shows, as a plain line-drawn grid */
-.cube__face--front .cube__sticker {
-  background: transparent;
-  transition: background var(--dur-base) var(--ease-out);
+  transition: outline-color var(--dur-base) var(--ease-out);
 }
 
 /* At rest only the front exists, so the edge-on faces don't draw stray lines */
@@ -111,10 +97,6 @@
 /* Play */
 .is-playing .cube {
   animation: cube-pivot var(--cycle) var(--ease-draft) infinite;
-}
-
-.is-playing .cube__face--front .cube__sticker {
-  background: var(--sticker);
 }
 
 .is-playing .cube__layer--top {

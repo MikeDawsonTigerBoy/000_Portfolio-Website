@@ -6,8 +6,8 @@ import './Home.css'
 
 const facts = [
   { value: '09', label: 'Years of international architectural delivery' },
-  { value: '03', label: 'AI prototypes in active development, seven more on the drawing board' },
-  { value: '02', label: 'Cities: Cape Town 33.9°S ⇄ Berlin 52.5°N' },
+  { value: '03', label: 'AI prototypes in active development' },
+  { value: '07', label: 'More prototypes on the drawing board' },
 ]
 
 function Home() {
