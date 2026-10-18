@@ -45,6 +45,24 @@ test('home has three entry cards', async ({ page }, testInfo) => {
   await screenshot(page, testInfo, 'home')
 })
 
+test('header nav reads About, Product, Art, Music, Blog', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('.site-header__nav a')).toHaveText(['About', 'Product', 'Art', 'Music', 'Blog'])
+})
+
+test('about page lists email contact', async ({ page }, testInfo) => {
+  await page.goto('/about')
+  await expect(page.locator('a.contact-row[href="mailto:mike.stuart.dawson@outlook.com"]')).toBeVisible()
+  await expectNoHorizontalScroll(page)
+  await screenshot(page, testInfo, 'about')
+})
+
+test('blog page loads', async ({ page }) => {
+  await page.goto('/blog')
+  await expect(page.locator('h1')).toContainText('Blog')
+  await expectNoHorizontalScroll(page)
+})
+
 test('product lists prototypes 001–010', async ({ page }, testInfo) => {
   await page.goto('/product')
   const cards = page.locator('a.project-card')

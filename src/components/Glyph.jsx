@@ -22,6 +22,13 @@ const paths = {
     'M10 90 L90 10',
     'M50 90 A40 40 0 0 1 90 50',
   ],
+  lines: [
+    'M20 8 H70 L84 22 V92 H20 Z',
+    'M70 8 V22 H84',
+    'M32 40 H72',
+    'M32 54 H72',
+    'M32 68 H60',
+  ],
 }
 
 function Glyph({ type = 'grid', className = '' }) {

@@ -33,6 +33,8 @@
   --section-art-on: var(--ink);
   --section-about: var(--ink);
   --section-about-on: var(--paper);
+  --section-blog: var(--ink-soft);
+  --section-blog-on: var(--paper);
 
   /* Typography */
   --font-display: 'Archivo', 'Arial Narrow', sans-serif;

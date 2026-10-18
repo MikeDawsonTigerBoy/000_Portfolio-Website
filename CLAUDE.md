@@ -24,11 +24,12 @@ Guidance for Claude Code when working in this repo.
 
 | Page | Purpose |
 | --- | --- |
-| Home | Landing page with three clear entry points: Product, Music, Art |
+| Home | Landing page with three clear entry points: Product, Music, Art. Header nav order: About, Product, Art, Music, Blog. |
 | Product | AI / product prototypes, numbered cards (001–010) linking to GitHub repos |
 | Music | Releases and links to Spotify, Apple Music, YouTube |
 | Art | Visual / architectural work |
-| About / Contact | Background, CV, how to get in touch |
+| About / Contact | Background, email and LinkedIn (`src/data/contact.js`) |
+| Blog | Learnings, linked to prototypes and articles (placeholder) |
 
 ## Prototype formats
 
@@ -70,3 +71,4 @@ Playwright runs on every PR, but check real phones before merging layout changes
 | SCRUM-27 | Music section |
 | SCRUM-28 | Prototype pages (device preview, Reflection card) |
 | SCRUM-29 | Mobile-browser testing (Playwright, CI) |
+| SCRUM-31 | Contact details, Blog section, nav order |
