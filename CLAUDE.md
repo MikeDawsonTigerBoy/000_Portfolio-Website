@@ -24,12 +24,18 @@ Guidance for Claude Code when working in this repo.
 
 | Page | Purpose |
 | --- | --- |
-| Home | Landing page with three clear entry points: Product, Music, Art. Header nav order: About, Product, Art, Music, Blog. |
-| Product | AI / product prototypes, numbered cards (001–010) linking to GitHub repos |
-| Music | Releases and links to Spotify, Apple Music, YouTube |
-| Art | Visual / architectural work |
+| Home | Landing page with three entry points: the first three published sections (now Product, Blog, About). Header nav: About, Product, Blog. |
+| Product | Featured prototypes only (001, 002, 004: `featured` in `src/data/projects.js`) as cards with their own pages, then an Under development table for the rest |
+| Music | **Hidden for the MVP.** Releases and links to Spotify, Apple Music, YouTube |
+| Art | **Hidden for the MVP.** Visual / architectural work |
 | About / Contact | Background, email and LinkedIn (`src/data/contact.js`) |
-| Blog | Learnings, linked to prototypes and articles (placeholder) |
+| Blog | Field notes as a stack of folders; each post slides up as a sheet at `/blog/<slug>`. Posts live in `src/data/posts.js` (photos go in `public/blog/`; `todo` blocks are Mike's to write) |
+
+**MVP focus (SCRUM-32):** the site's job is to show Mike can iterate and get hired. Art and Music stay in the code with `hidden: true` in `src/data/sections.js`: no nav link, no home card, and their URLs redirect home. To work on them locally, add `VITE_SHOW_HIDDEN_SECTIONS=true` to `.env.local` and restart `npm run dev`. Don't feature more prototypes or unhide sections unless Mike asks.
+
+**Identity (SCRUM-37):** "Mike Dawson — Product Builder Portfolio". No location anywhere on the site (no city, no "free to relocate"): Mike is geographically mobile. Section colours: Product is orange `#e43804` (black text on it), About is black, Blog is grey.
+
+**One orange (SCRUM-40):** everything Product uses the Product orange `#e43804`: the cards' hover flood, every prototype page and the Under development table. Don't add per-prototype colours. The card cube is a colourless wireframe: black lines at rest, off-white on the orange. Under development rows show number and name at rest; hovering or focusing a row sweeps the orange left to right and reveals the description in black. Project-page heroes show a static off-white 3 × 3 grid spanning the title's first two lines (`src/lib/useCapGrid.js`), not the animation.
 
 ## Prototype formats
 
@@ -60,6 +66,7 @@ Playwright runs on every PR, but check real phones before merging layout changes
 - **Never push to `main`.** Work on a branch and open a PR to `main`. Merging the PR is what deploys.
 - **Clean up merged branches.** After a PR is merged, delete its branch locally and on GitHub. The repo auto-deletes head branches on merge, so check it's gone (`git fetch --prune`) and delete the local copy with `git branch -d <branch>`.
 - **Mike approves every merge.** He merges on GitHub, or tells Claude to merge, after reviewing the Vercel preview. Never merge without his say-so.
+- **Review flow for every task:** branch → build and check it in the local preview → automated tests → PR on GitHub (Vercel preview link) → Jira ticket to Peer Review → Mike reviews and approves → merge → Jira ticket to Done. Never move a ticket to Done before its PR is merged.
 - **Close the Jira ticket on merge.** Once a PR is merged, move its Jira ticket (from the branch name) to Done without asking, then tell Mike it's done. Ask first only if the merge is substantial or looks suspicious, e.g. unexpected files, commits by someone else, or changes beyond the ticket's scope.
 - **Never close an epic on merge.** If the branch names an epic (e.g. SCRUM-5), leave it open. When the last open ticket under an epic moves to Done, tell Mike and ask whether to close the epic.
 
@@ -92,3 +99,5 @@ These rules are the same in every one of Mike's prototype repos. The git and Jir
 | SCRUM-28 | Prototype pages (device preview, Reflection card) |
 | SCRUM-29 | Mobile-browser testing (Playwright, CI) |
 | SCRUM-31 | Contact details, Blog section, nav order |
+| SCRUM-37 | Product builder identity: location-neutral copy, warm orange, cube puzzle, blog folders (subtasks SCRUM-38 to SCRUM-41) |
+| SCRUM-32 | MVP focus: featured prototypes, Under development table, hide Art and Music, cube on hover grid (subtasks SCRUM-33 to SCRUM-36) |

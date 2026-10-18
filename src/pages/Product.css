@@ -42,10 +42,226 @@
   .product__cell:last-child:nth-child(3n + 1) {
     grid-column: auto;
   }
+
+  /* Two columns: a lone last card spans the row instead of leaving a dark gap */
+  .product__cell:last-child:nth-child(2n + 1) {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 620px) {
   .product__grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/*
+ * Under development: a drawing schedule. At rest each row shows its number and
+ * name, with the description box left blank. Hovering (or focusing) a row sweeps
+ * the Product orange across it from left to right, the way the cards fill from
+ * the bottom, and the description appears in black on the orange.
+ */
+.product-upcoming {
+  margin-top: var(--space-8);
+}
+
+.product-upcoming__table {
+  width: 100%;
+  border-collapse: collapse;
+  border: var(--line);
+  background: var(--color-bg);
+  table-layout: fixed;
+}
+
+.product-upcoming__table th,
+.product-upcoming__table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--line-faint);
+  text-align: left;
+  vertical-align: middle;
+  overflow-wrap: break-word;
+}
+
+/* Black lines between the columns */
+.product-upcoming__table tr > :nth-child(n + 2) {
+  border-left: var(--line);
+}
+
+.product-upcoming__table thead th {
+  border-bottom: var(--line);
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+/*
+ * Names are 16px against the cards' 20px titles (0.8×), so the numbers use the
+ * cards' number style scaled by the same 0.8.
+ */
+.product-upcoming__table {
+  --upcoming-scale: 0.8;
+}
+
+.product-upcoming__table tbody th {
+  font-size: calc(var(--project-title-size) * var(--upcoming-scale));
+}
+
+.product-upcoming__number {
+  font-size: calc(var(--project-number-size) * var(--upcoming-scale));
+  line-height: 0.88;
+  white-space: nowrap;
+}
+
+/* Column widths: number, name, description */
+.product-upcoming__table tr > :nth-child(1) {
+  width: calc(var(--project-number-size) * var(--upcoming-scale) * 2.1);
+}
+
+.product-upcoming__table tr > :nth-child(2) {
+  width: 30%;
+}
+
+.product-upcoming__table tbody th {
+  font-family: var(--font-display);
+  font-stretch: 85%;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.product-upcoming__description {
+  font-size: var(--text-sm);
+}
+
+/*
+ * The sweep: each cell fills with the orange from its left edge. Delays chain
+ * the three cells (No. ≈ 15%, Name 30%, Description the rest of the width) so
+ * the fill reads as one continuous wipe; leaving, it runs back right to left.
+ */
+.product-upcoming__table tbody tr {
+  --sweep: 420ms;
+  outline: none;
+}
+
+.product-upcoming__table tbody tr > * {
+  background-image: linear-gradient(var(--section-product), var(--section-product));
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+  transition:
+    background-size calc(var(--sweep) * var(--share)) linear var(--leave-delay),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.product-upcoming__table tbody tr > :nth-child(1) {
+  --share: 0.15;
+  --enter-delay: 0ms;
+  --leave-delay: calc(var(--sweep) * 0.85);
+}
+
+.product-upcoming__table tbody tr > :nth-child(2) {
+  --share: 0.3;
+  --enter-delay: calc(var(--sweep) * 0.15);
+  --leave-delay: calc(var(--sweep) * 0.55);
+}
+
+.product-upcoming__table tbody tr > :nth-child(3) {
+  --share: 0.55;
+  --enter-delay: calc(var(--sweep) * 0.45);
+  --leave-delay: 0ms;
+  /* The description appears once the orange has crossed most of its box */
+  --text-delay: calc(var(--sweep) * 0.85);
+}
+
+/* Blank until the row is hovered or focused */
+.product-upcoming__description {
+  color: transparent;
+}
+
+.product-upcoming__table tbody tr:is(:hover, :focus-visible) > * {
+  background-size: 100% 100%;
+  color: var(--section-product-on);
+  transition:
+    background-size calc(var(--sweep) * var(--share)) linear var(--enter-delay),
+    color var(--dur-fast) var(--ease-out) var(--text-delay, var(--enter-delay));
+}
+
+.product-upcoming__table tbody tr:focus-visible > :first-child {
+  outline: 2px solid var(--color-line);
+  outline-offset: -4px;
+}
+
+/* Touch screens can't hover: show every description, no sweep */
+@media (hover: none) {
+  .product-upcoming__description {
+    color: var(--color-text-muted);
+  }
+}
+
+/* With collapsed borders the last row's faint divider would win over the table's
+   outline, so draw the bottom line explicitly */
+.product-upcoming__table tbody tr:last-child > * {
+  border-bottom: var(--line);
+}
+
+/* Phones: each row stacks, the number beside its name and description */
+@media (max-width: 620px) {
+  .product-upcoming__table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .product-upcoming__table tbody tr {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: var(--space-4);
+    padding: 0 var(--space-4) 0 0;
+    border-bottom: var(--line-faint);
+  }
+
+  .product-upcoming__table tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  /* Stacked rows: no column lines, no sweep, descriptions always shown */
+  .product-upcoming__table tbody tr > :nth-child(n) {
+    border-left: 0;
+    background-image: none;
+  }
+
+  .product-upcoming__description,
+  .product-upcoming__table tbody tr:is(:hover, :focus-visible) > .product-upcoming__description {
+    color: var(--color-text-muted);
+  }
+
+  /* :nth-child(n) lifts this above the desktop column-width rules */
+  .product-upcoming__table tbody tr > :nth-child(n) {
+    width: auto;
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  /* The number sits on the left, spanning the name and description */
+  .product-upcoming__table tbody td.product-upcoming__number {
+    grid-row: span 2;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    padding: var(--space-3);
+  }
+
+  .product-upcoming__table tbody th {
+    margin-top: var(--space-3);
+  }
+
+  .product-upcoming__table tbody td:last-child {
+    margin-bottom: var(--space-3);
+  }
+
+  .product-upcoming__table tbody td:last-child {
+    grid-column: 2;
+    margin-top: var(--space-1);
   }
 }

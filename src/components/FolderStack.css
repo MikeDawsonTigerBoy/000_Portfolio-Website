@@ -1,0 +1,193 @@
+/*
+ * Line-drawn folders, overlapped so each one shows its tab and a strip of its body.
+ * Hovering or focusing a folder lifts it and turns it black with a 45° section
+ * hatch (as in technical drawings) and off-white text.
+ *   --tab-h   tab height
+ *   --body-h  folder body height
+ *   --peek    how far each folder sits below the one behind it
+ */
+.folder-stack {
+  --tab-h: 40px;
+  --body-h: 220px;
+  --peek: 104px;
+  --lift: 28px;
+  /* Selected: ink with a fine 45° hatch in off-white */
+  --hatch:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 9px,
+      rgb(243 238 228 / 0.18) 9px 10px
+    ),
+    var(--ink);
+  margin: 0;
+  padding: var(--lift) 0 0;
+  list-style: none;
+}
+
+.folder-stack__item + .folder-stack__item {
+  margin-top: calc(var(--peek) - var(--tab-h) - var(--body-h));
+}
+
+.folder {
+  position: relative;
+  display: block;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+/* Tab: steps along the width so every folder's tab is visible */
+.folder__tab {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  width: min(320px, 40%);
+  height: var(--tab-h);
+  margin-left: min(calc(var(--i) * 28%), calc(100% - min(320px, 40%)));
+  margin-bottom: -1px;
+  padding: 0 var(--space-4);
+  border: var(--line);
+  border-bottom-color: var(--color-bg);
+  background: var(--color-bg);
+  transition:
+    background var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+.folder__date {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.folder__body {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: start;
+  column-gap: var(--space-4);
+  height: var(--body-h);
+  padding: var(--space-4);
+  border: var(--line);
+  background: var(--color-bg);
+  transition:
+    background var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+/* Same type as the Product card titles */
+.folder__title {
+  font-family: var(--font-display);
+  font-stretch: 85%;
+  font-weight: 700;
+  font-size: var(--text-lg);
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.folder__kicker {
+  grid-column: 1;
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.folder__open {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+}
+
+/* At rest the title is tucked away; hover or focus lifts the folder and reveals it */
+.folder__title,
+.folder__kicker,
+.folder__open {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.folder:hover,
+.folder:focus-visible {
+  transform: translateY(calc(var(--lift) * -1));
+}
+
+.folder:hover .folder__tab,
+.folder:focus-visible .folder__tab,
+.folder:hover .folder__body,
+.folder:focus-visible .folder__body {
+  background: var(--hatch);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.folder:hover .folder__tab,
+.folder:focus-visible .folder__tab {
+  border-bottom-color: transparent;
+}
+
+.folder:hover .folder__kicker,
+.folder:focus-visible .folder__kicker {
+  color: rgb(243 238 228 / 0.75);
+}
+
+.folder:hover .folder__date,
+.folder:focus-visible .folder__date {
+  color: inherit;
+}
+
+.folder:hover :is(.folder__title, .folder__kicker, .folder__open),
+.folder:focus-visible :is(.folder__title, .folder__kicker, .folder__open) {
+  opacity: 1;
+  transform: none;
+}
+
+.folder:focus-visible {
+  outline: none;
+}
+
+.folder:focus-visible .folder__body {
+  outline: 2px solid var(--paper);
+  outline-offset: -6px;
+}
+
+/* Touch screens and phone widths: no reliable hover, so always show the titles */
+@media (hover: none), (max-width: 620px) {
+  .folder__title,
+  .folder__kicker,
+  .folder__open {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .folder-stack {
+    --body-h: 200px;
+    --peek: 128px;
+  }
+
+  .folder__tab {
+    width: 60%;
+    margin-left: calc(var(--i) * 20%);
+  }
+
+  .folder__open {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .folder,
+  .folder__title,
+  .folder__kicker,
+  .folder__open {
+    transition: none;
+  }
+}

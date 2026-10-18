@@ -1,25 +1,29 @@
+import { useRef } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import DevicePreview from '../components/DevicePreview.jsx'
 import ReflectionCard from '../components/ReflectionCard.jsx'
 import Reveal from '../components/Reveal.jsx'
-import ConceptDiagram from '../components/diagrams/ConceptDiagram.jsx'
-import { findProject, formats, projects } from '../data/projects.js'
+import { featuredProjects, findProject, formats, projects } from '../data/projects.js'
+import { useCapGrid } from '../lib/useCapGrid.js'
 import './ProjectPage.css'
 
 function ProjectPage() {
   const { number } = useParams()
   const project = findProject(number)
+  const titleRef = useRef(null)
+  const grid = useCapGrid(titleRef, [number])
 
   if (!project) return <Navigate to="/product" replace />
 
   const format = formats[project.format]
-  const index = projects.indexOf(project)
-  const prev = projects[index - 1]
-  const next = projects[index + 1]
+  // Prev / next step through the featured prototypes only
+  const index = featuredProjects.indexOf(project)
+  const prev = featuredProjects[index - 1]
+  const next = featuredProjects[index + 1]
 
   return (
     <article className="project-page">
-      <header className="project-hero" data-diagram-host>
+      <header className="project-hero">
         <div className="project-hero__inner container">
           <div className="project-hero__label mono">
             <Link to="/product">← Product</Link>
@@ -28,8 +32,20 @@ function ProjectPage() {
             </span>
           </div>
           <span className="project-hero__number display">{project.number}</span>
-          <ConceptDiagram type={project.diagram} size={180} className="project-hero__diagram" />
-          <h1 className="project-hero__title display">{project.title}</h1>
+          {/* Static on purpose: the visitor has chosen this project, so nothing moves here.
+              It spans the title's first two lines exactly (see useCapGrid). */}
+          <div
+            className="project-hero__grid"
+            aria-hidden="true"
+            style={grid ? { '--grid-top': `${grid.top}px`, '--grid-size': `${grid.size}px` } : { visibility: 'hidden' }}
+          >
+            {Array.from({ length: 9 }, (_, index) => (
+              <span key={index} />
+            ))}
+          </div>
+          <h1 ref={titleRef} className="project-hero__title display">
+            {project.title}
+          </h1>
           {project.subtitle && <p className="mono project-hero__subtitle">{project.subtitle}</p>}
           <p className="project-hero__summary">{project.summary}</p>
         </div>

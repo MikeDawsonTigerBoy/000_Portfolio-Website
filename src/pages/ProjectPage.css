@@ -1,4 +1,4 @@
-/* Hero: blueprint flood, scaled for long project names */
+/* Hero: Product-colour flood, scaled for long project names */
 .project-hero {
   background: var(--section-product);
   color: var(--section-product-on);
@@ -28,15 +28,34 @@
   text-decoration: underline;
 }
 
-/* Concept diagram floats top-right of the hero and plays on hover */
-.project-hero__diagram {
+/*
+ * Static 3 × 3 grid in the background's off-white. Its right edge is the content
+ * edge (in line with "PRJ 00x / 010" and the spec table); its top and bottom are
+ * the cap top of the title's first line and the baseline of its second, measured
+ * by useCapGrid. Lines are 2px: the off-white shows through 2px gaps and a 2px
+ * frame, so all nine cells are exactly equal.
+ */
+.project-hero__grid {
+  --line-weight: 2px;
   position: absolute;
-  top: calc(var(--space-6) + var(--space-7));
-  right: calc(var(--gutter) + var(--space-6));
+  top: var(--grid-top);
+  right: var(--gutter);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--line-weight);
+  width: var(--grid-size);
+  height: var(--grid-size);
+  padding: var(--line-weight);
+  background: var(--paper);
+}
+
+.project-hero__grid span {
+  background: var(--section-product);
 }
 
 @media (max-width: 900px) {
-  .project-hero__diagram {
+  .project-hero__grid {
     display: none;
   }
 }
@@ -57,7 +76,7 @@
   position: relative;
   max-width: 14ch;
   margin-top: var(--space-6);
-  font-size: clamp(3rem, 9vw, 7.5rem);
+  font-size: clamp(2rem, 9vw, 7.5rem);
   animation: section-title-rise var(--dur-slow) var(--ease-out) 200ms both;
 }
 

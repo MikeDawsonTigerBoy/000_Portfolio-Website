@@ -1,6 +1,11 @@
 /*
  * --cube sets the overall size. One cycle: flat grid → pivot to 3D → layers
  * turn → layers unwind → back to flat. Plays while a parent has .is-playing.
+ *
+ * Colours come from the parent (the Product card sets them on hover):
+ *   --cube-line     edges          (ink at rest, off-white on the orange)
+ *   --cube-fill     face fill      (paper at rest, the orange on the orange)
+ *   --cube-outline  silhouette     (orange off the card, off-white on it)
  */
 .cube-scene {
   /* Size comes from --cube on a parent (ConceptDiagram sets it), else 120px */
@@ -8,8 +13,18 @@
   --u: calc(var(--size) / 3);
   --half: calc(var(--size) / 2);
   --cycle: 5.2s;
+  --line: var(--cube-line, var(--ink));
+  --fill: var(--cube-fill, var(--paper));
+  --edge-outline: var(--cube-outline, var(--section-product));
+  position: relative;
   width: var(--size);
   height: var(--size);
+}
+
+/* Two copies of the same cube, stacked and animated in step */
+.cube-view {
+  position: absolute;
+  inset: 0;
   perspective: calc(var(--size) * 6);
 }
 
@@ -40,81 +55,91 @@
   top: calc(var(--u) * 2);
 }
 
-/* Faces */
+/* Small cubes: u × u × u boxes, three rows deep */
+.cube__piece {
+  position: absolute;
+  top: 0;
+  left: calc(var(--x) * var(--u));
+  width: var(--u);
+  height: var(--u);
+  transform-style: preserve-3d;
+  /* Depth: back row at −u, middle at 0, front at +u */
+  transform: translateZ(calc((var(--z) - 1) * var(--u)));
+}
+
 .cube__face {
   position: absolute;
   inset: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  backface-visibility: hidden;
-}
-
-.cube__face--front {
-  transform: translateZ(var(--half));
-  --sticker: var(--paper);
-}
-
-.cube__face--right {
-  transform: rotateY(90deg) translateZ(var(--half));
-  --sticker: var(--highlighter);
-}
-
-.cube__face--back {
-  transform: rotateY(180deg) translateZ(var(--half));
-  --sticker: var(--ink-soft);
-}
-
-.cube__face--left {
-  transform: rotateY(-90deg) translateZ(var(--half));
-  --sticker: var(--terracotta);
-}
-
-.cube__face--up,
-.cube__face--down {
-  top: calc((var(--u) - var(--size)) / 2);
-  height: var(--size);
-  grid-template-rows: repeat(3, 1fr);
-}
-
-.cube__face--up {
-  transform: rotateX(90deg) translateZ(calc(var(--u) / 2));
-  --sticker: var(--paper-deep);
-}
-
-.cube__face--down {
-  transform: rotateX(-90deg) translateZ(calc(var(--u) / 2));
-  --sticker: var(--paper-deep);
-}
-
-.cube__face--core {
-  background: var(--ink);
-}
-
-.cube__sticker {
-  background: var(--sticker);
-  outline: 1px solid var(--ink);
+  /* Centred on the edge, so neighbouring faces' lines land on the same pixels */
+  outline: 1px solid var(--line);
   outline-offset: -0.5px;
+  transition:
+    outline-color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
 }
 
-/* Flat state: only the front shows, as a plain line-drawn grid */
-.cube__face--front .cube__sticker {
-  background: transparent;
-  transition: background var(--dur-base) var(--ease-out);
+.cube__face--front { transform: translateZ(calc(var(--u) / 2)); }
+.cube__face--back { transform: rotateY(180deg) translateZ(calc(var(--u) / 2)); }
+.cube__face--right { transform: rotateY(90deg) translateZ(calc(var(--u) / 2)); }
+.cube__face--left { transform: rotateY(-90deg) translateZ(calc(var(--u) / 2)); }
+.cube__face--up { transform: rotateX(90deg) translateZ(calc(var(--u) / 2)); }
+.cube__face--down { transform: rotateX(-90deg) translateZ(calc(var(--u) / 2)); }
+
+/* Solid copy: filled faces show the external form; inner lines are hidden */
+.is-playing .cube-view--solid .cube__face {
+  background: var(--fill);
 }
 
-/* At rest only the front exists, so the edge-on faces don't draw stray lines */
+/*
+ * One thick line around the silhouette only. Four stacked shadows grow the
+ * form by 2px on every side; because the faces are opaque, the line can only
+ * show outside the form, so it follows the outline as the layers turn.
+ */
+.is-playing .cube-view--solid {
+  filter:
+    drop-shadow(2px 0 0 var(--edge-outline))
+    drop-shadow(-2px 0 0 var(--edge-outline))
+    drop-shadow(0 2px 0 var(--edge-outline))
+    drop-shadow(0 -2px 0 var(--edge-outline));
+}
+
+/* Ghost copy: every edge again at 25%, so the lines behind show faintly */
+.cube-view--ghost {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.is-playing .cube-view--ghost {
+  animation: cube-ghost var(--cycle) linear infinite;
+}
+
+@keyframes cube-ghost {
+  0%,
+  7% {
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 0.25;
+  }
+  93%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/*
+ * At rest the cube is the flat 3 × 3 grid: only the front faces of the front
+ * row show, as lines, so no edge-on or receding lines appear.
+ */
+.concept-diagram:not(.is-playing) .cube__piece:not(.cube__piece--front),
 .concept-diagram:not(.is-playing) .cube__face:not(.cube__face--front) {
   visibility: hidden;
 }
 
-/* Play */
+/* Play: both copies run the same keyframes, so they move as one */
 .is-playing .cube {
   animation: cube-pivot var(--cycle) var(--ease-draft) infinite;
-}
-
-.is-playing .cube__face--front .cube__sticker {
-  background: var(--sticker);
 }
 
 .is-playing .cube__layer--top {
@@ -191,7 +216,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .is-playing .cube,
-  .is-playing .cube__layer {
+  .is-playing .cube__layer,
+  .is-playing .cube-view--ghost {
     animation: none;
   }
 }

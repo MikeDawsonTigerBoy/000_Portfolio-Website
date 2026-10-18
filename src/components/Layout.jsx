@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import GridOverlay from './GridOverlay.jsx'
 import SiteHeader from './SiteHeader.jsx'
@@ -10,8 +10,13 @@ function Layout() {
   const { pathname } = useLocation()
   const current = sections.find((section) => pathname.startsWith(section.path))
 
+  // Scroll to the top on page changes, but not when a blog post opens or closes
+  // over the folder stack (/blog ⇄ /blog/:slug).
+  const previousPath = useRef(pathname)
   useEffect(() => {
-    window.scrollTo(0, 0)
+    const stayingOnBlog = previousPath.current.startsWith('/blog') && pathname.startsWith('/blog')
+    previousPath.current = pathname
+    if (!stayingOnBlog) window.scrollTo(0, 0)
   }, [pathname])
 
   return (

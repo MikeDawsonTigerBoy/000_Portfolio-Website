@@ -38,16 +38,25 @@ test('home has three entry cards', async ({ page }, testInfo) => {
   await page.goto('/')
   const cards = page.locator('a.entry-card')
   await expect(cards).toHaveCount(3)
-  for (const path of ['/product', '/music', '/art']) {
+  for (const path of ['/product', '/blog', '/about']) {
     await expect(page.locator(`a.entry-card[href="${path}"]`)).toBeVisible()
   }
   await expectNoHorizontalScroll(page)
   await screenshot(page, testInfo, 'home')
 })
 
-test('header nav reads About, Product, Art, Music, Blog', async ({ page }) => {
+test('header nav reads About, Product, Blog', async ({ page }) => {
   await page.goto('/')
-  await expect(page.locator('.site-header__nav a')).toHaveText(['About', 'Product', 'Art', 'Music', 'Blog'])
+  await expect(page.locator('.site-header__nav a')).toHaveText(['About', 'Product', 'Blog'])
+})
+
+// Art and Music stay in the code but are hidden on the deployed site (SCRUM-35).
+test('art and music are hidden and send visitors home', async ({ page }) => {
+  for (const path of ['/art', '/music']) {
+    await page.goto(path)
+    await expect(page).toHaveURL(/\/$/)
+    await expect(page.locator(`a[href="${path}"]`)).toHaveCount(0)
+  }
 })
 
 test('about page lists email and LinkedIn contacts', async ({ page }, testInfo) => {
@@ -60,20 +69,77 @@ test('about page lists email and LinkedIn contacts', async ({ page }, testInfo) 
   await screenshot(page, testInfo, 'about')
 })
 
-test('blog page loads', async ({ page }) => {
+test('blog folders open a post that slides up and closes back to the stack', async ({ page }, testInfo) => {
   await page.goto('/blog')
   await expect(page.locator('h1')).toContainText('Blog')
+  const folders = page.locator('a.folder')
+  await expect(folders).toHaveCount(3)
   await expectNoHorizontalScroll(page)
+  await screenshot(page, testInfo, 'blog')
+
+  await folders.last().click()
+  await expect(page).toHaveURL(/\/blog\/a-weekend-of-building$/)
+  const sheet = page.getByRole('dialog')
+  await expect(sheet).toBeVisible()
+  await expect(sheet.locator('h2')).toHaveText('A weekend of building')
+
+  await page.keyboard.press('Escape')
+  await expect(page).toHaveURL(/\/blog$/)
+  await expect(sheet).toHaveCount(0)
 })
 
-test('product lists prototypes 001–010', async ({ page }, testInfo) => {
+test('a post link opens straight into its sheet', async ({ page }) => {
+  await page.goto('/blog/claude-community-build-day')
+  await expect(page.getByRole('dialog').locator('h2')).toHaveText('Claude Community Build Day')
+  await page.goto('/blog/no-such-post')
+  await expect(page).toHaveURL(/\/blog$/)
+})
+
+// No location anywhere on the site (SCRUM-38): Mike is geographically mobile.
+// The Under development table is skipped: 008's game is set over Cape Town.
+test('no location is stated anywhere', async ({ page }) => {
+  for (const path of ['/', '/about', '/product', '/blog']) {
+    await page.goto(path)
+    const text = await page.evaluate(() => {
+      const copy = document.body.cloneNode(true)
+      copy.querySelector('.product-upcoming')?.remove()
+      return copy.textContent
+    })
+    for (const word of ['Berlin', 'Cape Town', 'relocate', 'Location']) {
+      expect(text, `${path} mentions ${word}`).not.toContain(word)
+    }
+  }
+  const footer = page.locator('.title-block')
+  await expect(footer).toContainText('Product Builder Portfolio')
+  await expect(footer).toContainText(/(January|February|March|April|May|June|July|August|September|October|November|December) \d{4}/)
+})
+
+test('product shows 001, 002 and 004, with the rest under development', async ({ page }, testInfo) => {
   await page.goto('/product')
   const cards = page.locator('a.project-card')
-  await expect(cards).toHaveCount(10)
-  for (let n = 1; n <= 10; n++) {
-    const number = String(n).padStart(3, '0')
+  await expect(cards).toHaveCount(3)
+  for (const number of ['001', '002', '004']) {
     await expect(page.locator(`a.project-card[href="/product/${number}"]`)).toHaveCount(1)
   }
+
+  const rows = page.locator('.product-upcoming__table tbody tr')
+  await expect(rows).toHaveCount(7)
+  await expect(rows.first().locator('td').first()).toHaveText('003')
+  await expect(page.locator('.product-upcoming__table')).toContainText('Air City')
+
+  // Descriptions are blank until a row is hovered (desktop); touch screens always show them
+  if (!isMobile(testInfo)) {
+    const description = rows.first().locator('.product-upcoming__description')
+    await expect(description).toHaveCSS('color', 'rgba(0, 0, 0, 0)')
+    await rows.first().hover()
+    await expect(description).toHaveCSS('color', 'rgb(27, 26, 23)')
+    await expect(rows.first().locator('td').first()).toHaveCSS('background-size', '100% 100%')
+  }
+
+  // Unfeatured prototypes have no page of their own yet
+  await page.goto('/product/009')
+  await expect(page).toHaveURL(/\/product$/)
+  await page.goto('/product')
   await expectNoHorizontalScroll(page)
   await screenshot(page, testInfo, 'product')
 })
@@ -106,22 +172,4 @@ test('project 004 previews for the visitor’s device', async ({ page }, testInf
 
   await expectNoHorizontalScroll(page)
   await screenshot(page, testInfo, 'product-004')
-})
-
-test('music links to Spotify, Apple Music and YouTube', async ({ page }, testInfo) => {
-  await page.goto('/music')
-  const links = page.locator('a.listen-row')
-  await expect(links).toHaveCount(3)
-  await expect(links.nth(0)).toHaveAttribute('href', /^https:\/\/open\.spotify\.com\//)
-  await expect(links.nth(1)).toHaveAttribute('href', /^https:\/\/music\.apple\.com\//)
-  await expect(links.nth(2)).toHaveAttribute('href', /^https:\/\/www\.youtube\.com\//)
-  await expectNoHorizontalScroll(page)
-  await screenshot(page, testInfo, 'music')
-})
-
-test('art has no sideways scroll', async ({ page }, testInfo) => {
-  await page.goto('/art')
-  await expect(page.locator('h1')).toBeVisible()
-  await expectNoHorizontalScroll(page)
-  await screenshot(page, testInfo, 'art')
 })

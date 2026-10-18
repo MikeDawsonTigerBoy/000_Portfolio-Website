@@ -1,0 +1,14 @@
+.blog {
+  padding-top: var(--space-7);
+}
+
+.blog__head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-2);
+}
+
+.blog__head h2 {
+  font: inherit;
+}
