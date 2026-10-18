@@ -48,8 +48,11 @@
 .project-card:hover,
 .project-card:focus-visible {
   color: var(--section-product-on);
-  /* The wireframe cube turns off-white on the colour */
+  /* On the orange the cube is filled orange with off-white lines and outline;
+     off the card (finishing its cycle) it is paper with an orange outline */
   --cube-line: var(--paper);
+  --cube-fill: var(--section-product);
+  --cube-outline: var(--paper);
 }
 
 .project-card:hover::before,
