@@ -10,7 +10,7 @@ function TitleBlock() {
       <dl className="title-block__grid">
         <div className="title-block__cell title-block__cell--wide">
           <dt className="mono">Project</dt>
-          <dd className="display title-block__name">Mike Dawson — Portfolio</dd>
+          <dd className="display title-block__name">Mike Dawson — Product Builder Portfolio</dd>
         </div>
         <div className="title-block__cell">
           <dt className="mono">Drawn by</dt>
@@ -18,7 +18,7 @@ function TitleBlock() {
         </div>
         <div className="title-block__cell">
           <dt className="mono">Location</dt>
-          <dd>Cape Town ⇄ Berlin</dd>
+          <dd>Cape Town · Free to relocate</dd>
         </div>
         <div className="title-block__cell">
           <dt className="mono">Date</dt>

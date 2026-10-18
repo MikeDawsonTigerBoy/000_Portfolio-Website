@@ -16,7 +16,7 @@
   transition: color var(--dur-base) var(--ease-draft);
 }
 
-/* Blueprint flood, plus a fine grid that slides in over it */
+/* Electric-orange flood, plus a fine white grid that slides in over it */
 .project-card::before,
 .project-card::after {
   content: '';
@@ -33,8 +33,8 @@
 
 .project-card::after {
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.12) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.12) 1px, transparent 1px);
+    linear-gradient(to right, rgb(255 255 255 / 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.3) 1px, transparent 1px);
   background-size: var(--card-grid) var(--card-grid);
   /* Anchored top-right so the diagram (pinned top-right) lands on the grid lines */
   background-position: right top;

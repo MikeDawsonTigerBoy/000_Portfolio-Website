@@ -52,22 +52,18 @@
 
 .cube__face--front {
   transform: translateZ(var(--half));
-  --sticker: var(--paper);
 }
 
 .cube__face--right {
   transform: rotateY(90deg) translateZ(var(--half));
-  --sticker: var(--highlighter);
 }
 
 .cube__face--back {
   transform: rotateY(180deg) translateZ(var(--half));
-  --sticker: var(--ink-soft);
 }
 
 .cube__face--left {
   transform: rotateY(-90deg) translateZ(var(--half));
-  --sticker: var(--terracotta);
 }
 
 .cube__face--up,
@@ -79,12 +75,10 @@
 
 .cube__face--up {
   transform: rotateX(90deg) translateZ(calc(var(--u) / 2));
-  --sticker: var(--paper-deep);
 }
 
 .cube__face--down {
   transform: rotateX(-90deg) translateZ(calc(var(--u) / 2));
-  --sticker: var(--paper-deep);
 }
 
 .cube__face--core {

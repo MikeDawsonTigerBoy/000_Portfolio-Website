@@ -9,7 +9,7 @@ export const sections = [
     number: '04',
     title: 'About',
     path: '/about',
-    summary: 'Registered architect moving into AI product management. Cape Town ⇄ Berlin.',
+    summary: 'Registered architect moving into AI product management. Based in Cape Town, free to relocate.',
     meta: 'Contact',
     glyph: 'grid',
   },

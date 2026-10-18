@@ -29,9 +29,13 @@ Guidance for Claude Code when working in this repo.
 | Music | **Hidden for the MVP.** Releases and links to Spotify, Apple Music, YouTube |
 | Art | **Hidden for the MVP.** Visual / architectural work |
 | About / Contact | Background, email and LinkedIn (`src/data/contact.js`) |
-| Blog | Learnings, linked to prototypes and articles (placeholder) |
+| Blog | Field notes as a stack of folders; each post slides up as a sheet at `/blog/<slug>`. Posts live in `src/data/posts.js` (photos go in `public/blog/`; `todo` blocks are Mike's to write) |
 
 **MVP focus (SCRUM-32):** the site's job is to show Mike can iterate and get hired. Art and Music stay in the code with `hidden: true` in `src/data/sections.js`: no nav link, no home card, and their URLs redirect home. To work on them locally, add `VITE_SHOW_HIDDEN_SECTIONS=true` to `.env.local` and restart `npm run dev`. Don't feature more prototypes or unhide sections unless Mike asks.
+
+**Identity (SCRUM-37):** "Mike Dawson — Product Builder Portfolio". Copy stays location-neutral: based in Cape Town, free to relocate. Don't name a target city. Section colours: Product is electric orange `#ff5414` (black text on it), About is black, Blog is grey.
+
+**Cube puzzle (SCRUM-40):** the Rubik's cube uses a 9-colour palette (`--cube-*` in `tokens.css`). Each hover moves every cube one state closer to solved, from 1 (jumbled) to 4 (solved). Progress is stored in the visitor's browser under `md-cube-hovers`; see `src/components/diagrams/cubePuzzle.js`.
 
 ## Prototype formats
 
@@ -77,4 +81,5 @@ Playwright runs on every PR, but check real phones before merging layout changes
 | SCRUM-28 | Prototype pages (device preview, Reflection card) |
 | SCRUM-29 | Mobile-browser testing (Playwright, CI) |
 | SCRUM-31 | Contact details, Blog section, nav order |
+| SCRUM-37 | Product builder identity: location-neutral copy, electric orange, cube puzzle, blog folders (subtasks SCRUM-38 to SCRUM-41) |
 | SCRUM-32 | MVP focus: featured prototypes, Under development table, hide Art and Music, cube on hover grid (subtasks SCRUM-33 to SCRUM-36) |

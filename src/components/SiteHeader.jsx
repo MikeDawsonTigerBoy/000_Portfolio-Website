@@ -20,7 +20,10 @@ function SiteHeader({ sheet = '000', sheetTitle = 'Index' }) {
               key={section.id}
               to={section.path}
               className="site-header__link mono"
-              style={{ '--link-flood': `var(--section-${section.id})` }}
+              style={{
+                '--link-flood': `var(--section-${section.id})`,
+                '--link-flood-on': `var(--section-${section.id}-on)`,
+              }}
             >
               {section.title}
             </NavLink>

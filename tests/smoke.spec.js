@@ -69,10 +69,40 @@ test('about page lists email and LinkedIn contacts', async ({ page }, testInfo) 
   await screenshot(page, testInfo, 'about')
 })
 
-test('blog page loads', async ({ page }) => {
+test('blog folders open a post that slides up and closes back to the stack', async ({ page }, testInfo) => {
   await page.goto('/blog')
   await expect(page.locator('h1')).toContainText('Blog')
+  const folders = page.locator('a.folder')
+  await expect(folders).toHaveCount(3)
   await expectNoHorizontalScroll(page)
+  await screenshot(page, testInfo, 'blog')
+
+  await folders.last().click()
+  await expect(page).toHaveURL(/\/blog\/a-weekend-of-building$/)
+  const sheet = page.getByRole('dialog')
+  await expect(sheet).toBeVisible()
+  await expect(sheet.locator('h2')).toHaveText('A weekend of building')
+
+  await page.keyboard.press('Escape')
+  await expect(page).toHaveURL(/\/blog$/)
+  await expect(sheet).toHaveCount(0)
+})
+
+test('a post link opens straight into its sheet', async ({ page }) => {
+  await page.goto('/blog/claude-community-build-day')
+  await expect(page.getByRole('dialog').locator('h2')).toHaveText('Claude Community Build Day')
+  await page.goto('/blog/no-such-post')
+  await expect(page).toHaveURL(/\/blog$/)
+})
+
+// The site stays location-neutral (SCRUM-38)
+test('copy is location-neutral', async ({ page }) => {
+  for (const path of ['/', '/about']) {
+    await page.goto(path)
+    await expect(page.locator('body')).not.toContainText('Berlin')
+  }
+  await expect(page.locator('.title-block')).toContainText('Product Builder Portfolio')
+  await expect(page.locator('.title-block')).toContainText('Free to relocate')
 })
 
 test('product shows 001, 002 and 004, with the rest under development', async ({ page }, testInfo) => {

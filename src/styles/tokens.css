@@ -14,6 +14,19 @@
   --terracotta: #d2491a;
   --blueprint: #1f4fd8;
   --highlighter: #ffb800;
+  --electric-orange: #ff5414;
+
+  /* Rubik's cube palette (SCRUM-40): five reference tones plus four oranges around
+     the electric orange. Warm, bright and bold. */
+  --cube-aubergine: #3a2551;
+  --cube-magenta: #9c3767;
+  --cube-rose: #e89a9a;
+  --cube-coral: #f2545b;
+  --cube-peach: #f9d3c2;
+  --cube-electric: #ff5414;
+  --cube-tangerine: #ff8a3d;
+  --cube-ember: #c7350a;
+  --cube-apricot: #ffb37a;
 
   /* Roles */
   --color-bg: var(--paper);
@@ -25,8 +38,9 @@
   --color-accent: var(--terracotta);
 
   /* Section floods: background + the text colour that sits on it */
-  --section-product: var(--blueprint);
-  --section-product-on: var(--paper);
+  /* Product is electric orange (SCRUM-39). Black text on it stays readable. */
+  --section-product: var(--electric-orange);
+  --section-product-on: var(--ink);
   --section-music: var(--terracotta);
   --section-music-on: var(--paper);
   --section-art: var(--highlighter);
