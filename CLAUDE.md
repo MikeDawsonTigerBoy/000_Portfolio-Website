@@ -5,7 +5,7 @@ Guidance for Claude Code when working in this repo.
 ## Project context
 
 - **Owner:** Mike Dawson — registered architect (9 years of international delivery) moving into AI product management.
-- **Location:** Based in Cape Town; aiming to work in Berlin, then split time between Berlin and Cape Town ("two summers" swallow FIRE lifestyle). The site should support job hunting in Berlin.
+- **Goal:** the site supports Mike's job search for AI product roles. He is geographically mobile, so neither the site nor this repo names a location.
 - **What this is:** Mike's portfolio site, live at https://mike-dawson.vercel.app.
 - **Stack:** React 19 + Vite, linted with oxlint.
 - **Repo:** GitHub `MikeDawsonTigerBoy/000_Portfolio-Website`.
@@ -69,6 +69,23 @@ Playwright runs on every PR, but check real phones before merging layout changes
 - **Review flow for every task:** branch → build and check it in the local preview → automated tests → PR on GitHub (Vercel preview link) → Jira ticket to Peer Review → Mike reviews and approves → merge → Jira ticket to Done. Never move a ticket to Done before its PR is merged.
 - **Close the Jira ticket on merge.** Once a PR is merged, move its Jira ticket (from the branch name) to Done without asking, then tell Mike it's done. Ask first only if the merge is substantial or looks suspicious, e.g. unexpected files, commits by someone else, or changes beyond the ticket's scope.
 - **Never close an epic on merge.** If the branch names an epic (e.g. SCRUM-5), leave it open. When the last open ticket under an epic moves to Done, tell Mike and ask whether to close the epic.
+
+## Shared rules
+
+These rules are the same in every one of Mike's prototype repos. The git and Jira rules are already listed under Rules above.
+
+**Read before building**
+- **Read `README.md` first.** It's the agreed product brief. Build within its scope and non-goals.
+- **Flag drift.** If a request conflicts with the README or seems to drift from its focus, say so before building.
+- **Challenge the thinking.** Question the problem, the users and the solution, rather than accepting them as given.
+
+**Keeping the README current**
+- **Update it in the same PR.** When a change affects scope, status, tech approach or roadmap, update `README.md` as part of that PR.
+- **Review checkpoints.** At the end of each version or major milestone, ask Mike to review the README and the site's focus before starting the next one.
+
+**Security**
+- **Never commit secrets.** No credentials, API keys or tokens, and no personal data.
+- **This repo is public.**
 
 ## Jira map
 
