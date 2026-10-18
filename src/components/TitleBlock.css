@@ -6,7 +6,7 @@
 
 .title-block__grid {
   display: grid;
-  grid-template-columns: 2fr repeat(4, 1fr);
+  grid-template-columns: 2fr repeat(3, 1fr);
   margin: 0;
   border: var(--line);
   background: var(--color-bg);
@@ -48,6 +48,11 @@
   .title-block__cell--wide {
     grid-column: 1 / -1;
     border-top: 0;
+  }
+
+  /* Three small cells under the wide one: the last spans the row */
+  .title-block__cell:last-child:nth-child(even) {
+    grid-column: 1 / -1;
   }
 
   /* Right-hand column once the wide cell spans the first row */

@@ -12,7 +12,7 @@ function About() {
       <SectionHero section={section}>
         <p>
           Registered architect with nine years of international delivery, moving into AI product
-          management. Based in Cape Town and free to relocate.
+          management.
         </p>
       </SectionHero>
 

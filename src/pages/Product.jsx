@@ -47,7 +47,12 @@ function Product() {
           <tbody>
             {upcomingProjects.map((project) => (
               <tr key={project.repo}>
-                <td className="product-upcoming__number display">{project.number}</td>
+                <td
+                  className="product-upcoming__number display"
+                  style={{ '--row-colour': project.colour, '--row-colour-on': project.colourOn }}
+                >
+                  {project.number}
+                </td>
                 <th scope="row">{project.title}</th>
                 <td>{project.summary}</td>
               </tr>

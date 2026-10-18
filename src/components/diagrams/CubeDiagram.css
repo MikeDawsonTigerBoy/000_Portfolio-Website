@@ -81,20 +81,12 @@
   transform: rotateX(-90deg) translateZ(calc(var(--u) / 2));
 }
 
-.cube__face--core {
-  background: var(--ink);
-}
-
+/* A colourless wireframe: only lines, black at rest and off-white on a coloured
+   card (the card sets --cube-line). */
 .cube__sticker {
-  background: var(--sticker);
-  outline: 1px solid var(--ink);
+  outline: 1px solid var(--cube-line, var(--ink));
   outline-offset: -0.5px;
-}
-
-/* Flat state: only the front shows, as a plain line-drawn grid */
-.cube__face--front .cube__sticker {
-  background: transparent;
-  transition: background var(--dur-base) var(--ease-out);
+  transition: outline-color var(--dur-base) var(--ease-out);
 }
 
 /* At rest only the front exists, so the edge-on faces don't draw stray lines */
@@ -105,10 +97,6 @@
 /* Play */
 .is-playing .cube {
   animation: cube-pivot var(--cycle) var(--ease-draft) infinite;
-}
-
-.is-playing .cube__face--front .cube__sticker {
-  background: var(--sticker);
 }
 
 .is-playing .cube__layer--top {

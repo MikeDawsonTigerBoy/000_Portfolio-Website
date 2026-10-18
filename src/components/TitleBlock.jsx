@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
 import './TitleBlock.css'
 
-const year = new Date().getFullYear()
+// Month and year of the latest commit on main (the last merge), set at build time
+// in vite.config.js, e.g. "October 2026".
+const lastUpdated = __LAST_UPDATED__
 
 // Footer drawn as an architectural title block.
 function TitleBlock() {
@@ -17,12 +19,8 @@ function TitleBlock() {
           <dd>M. Dawson</dd>
         </div>
         <div className="title-block__cell">
-          <dt className="mono">Location</dt>
-          <dd>Cape Town · Free to relocate</dd>
-        </div>
-        <div className="title-block__cell">
           <dt className="mono">Date</dt>
-          <dd>{year}</dd>
+          <dd>{lastUpdated}</dd>
         </div>
         <div className="title-block__cell">
           <dt className="mono">Contact</dt>

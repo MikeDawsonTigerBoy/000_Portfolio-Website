@@ -16,7 +16,7 @@
   transition: color var(--dur-base) var(--ease-draft);
 }
 
-/* Electric-orange flood, plus a fine white grid that slides in over it */
+/* The prototype's colour floods in, plus a fine white grid that slides over it */
 .project-card::before,
 .project-card::after {
   content: '';
@@ -27,7 +27,7 @@
 }
 
 .project-card::before {
-  background: var(--section-product);
+  background: var(--card-colour, var(--section-product));
   transform: translateY(101%);
 }
 
@@ -47,7 +47,9 @@
 
 .project-card:hover,
 .project-card:focus-visible {
-  color: var(--section-product-on);
+  color: var(--card-colour-on, var(--section-product-on));
+  /* The wireframe cube turns off-white on the colour */
+  --cube-line: var(--paper);
 }
 
 .project-card:hover::before,

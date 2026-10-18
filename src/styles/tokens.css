@@ -16,17 +16,18 @@
   --highlighter: #ffb800;
   --product-orange: #e43804;
 
-  /* Rubik's cube palette (SCRUM-40): the five warm orange tones from Mike's
-     reference, plus rose, coral, magenta and peach. No deep purple. */
-  --cube-orange: #f27428;
-  --cube-burnt: #e07422;
-  --cube-tan: #e09a68;
-  --cube-cream: #f8d7a8;
-  --cube-gold: #fbbf3a;
-  --cube-rose: #e89a9a;
-  --cube-coral: #f2545b;
-  --cube-magenta: #9c3767;
-  --cube-peach: #f9d3c2;
+  /* Prototype swatches (SCRUM-40): one colour per prototype, used for its card's
+     hover flood and its No. cell in the Under development table. 001 uses the
+     Product orange; the rest are Mike's warm reference tones. */
+  --swatch-orange: #f27428;
+  --swatch-burnt: #e07422;
+  --swatch-tan: #e09a68;
+  --swatch-cream: #f8d7a8;
+  --swatch-gold: #fbbf3a;
+  --swatch-rose: #e89a9a;
+  --swatch-coral: #f2545b;
+  --swatch-magenta: #9c3767;
+  --swatch-peach: #f9d3c2;
 
   /* Roles */
   --color-bg: var(--paper);

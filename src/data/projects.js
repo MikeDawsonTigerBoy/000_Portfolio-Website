@@ -28,10 +28,13 @@ export const MAX_REFLECTIONS = 5
  *   videoUrl    – demo video, for plugins
  *   reflections – up to 5 lessons learned building it
  *   diagram     – concept diagram that plays on hover (see components/diagrams); defaults to 'cube'
+ *   colour      – the prototype's colour: card hover flood and table No. cell (colourOn = text on it)
  */
 const rawProjects = [
   {
     number: '001',
+    colour: 'var(--product-orange)',
+    colourOn: 'var(--ink)',
     title: 'Decision Memory Layer',
     repo: '001_Decision-Memory-Layer',
     format: 'expo',
@@ -40,6 +43,8 @@ const rawProjects = [
   },
   {
     number: '002',
+    colour: 'var(--swatch-coral)',
+    colourOn: 'var(--ink)',
     title: 'Hitchhiker’s Guide to the City',
     repo: '002_Hitchhiker-s-Guide-To-The-City',
     format: 'expo',
@@ -48,6 +53,8 @@ const rawProjects = [
   },
   {
     number: '003',
+    colour: 'var(--swatch-orange)',
+    colourOn: 'var(--ink)',
     title: 'deTour',
     repo: '003_Detour',
     format: 'expo',
@@ -55,6 +62,8 @@ const rawProjects = [
   },
   {
     number: '004',
+    colour: 'var(--swatch-magenta)',
+    colourOn: 'var(--paper)',
     title: 'Shazanguage',
     repo: '004_Shazanguage',
     format: 'expo',
@@ -63,6 +72,8 @@ const rawProjects = [
   },
   {
     number: '005',
+    colour: 'var(--swatch-burnt)',
+    colourOn: 'var(--ink)',
     title: 'Financial Behaviour Analysis Tool',
     repo: '005_Financial-Behaviour-Analysis-Tool',
     format: 'web',
@@ -70,6 +81,8 @@ const rawProjects = [
   },
   {
     number: '006',
+    colour: 'var(--swatch-gold)',
+    colourOn: 'var(--ink)',
     title: 'Hominim Wayside Recreate',
     repo: '006_Hominim_Wayside_Recreate',
     format: 'expo',
@@ -77,6 +90,8 @@ const rawProjects = [
   },
   {
     number: '007',
+    colour: 'var(--swatch-rose)',
+    colourOn: 'var(--ink)',
     title: 'Retrogram',
     repo: '007_Retrogram',
     format: 'expo',
@@ -84,6 +99,8 @@ const rawProjects = [
   },
   {
     number: '008',
+    colour: 'var(--swatch-tan)',
+    colourOn: 'var(--ink)',
     title: 'Cape Fear Mod',
     repo: '008_Cape-Fear_Mod',
     format: 'expo',
@@ -91,6 +108,8 @@ const rawProjects = [
   },
   {
     number: '009',
+    colour: 'var(--swatch-cream)',
+    colourOn: 'var(--ink)',
     title: 'Air City',
     repo: '009_Air_City',
     format: 'web',
@@ -98,6 +117,8 @@ const rawProjects = [
   },
   {
     number: '010',
+    colour: 'var(--swatch-peach)',
+    colourOn: 'var(--ink)',
     title: 'Tonicity',
     repo: '010_Tonicity_MIDI-Visualiser-Ableton-Plugin',
     format: 'plugin',

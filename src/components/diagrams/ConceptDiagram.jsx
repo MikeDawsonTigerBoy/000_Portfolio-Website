@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import CubeDiagram from './CubeDiagram.jsx'
-import { advanceCubePuzzle } from './cubePuzzle.js'
 
 // Each prototype names its diagram in src/data/projects.js. Add new ones here.
-// `onStart` runs once each time a hover starts the diagram playing.
 const diagrams = {
-  cube: { Component: CubeDiagram, cycleAnimation: 'cube-pivot', onStart: advanceCubePuzzle },
+  cube: { Component: CubeDiagram, cycleAnimation: 'cube-pivot' },
 }
 
 /*
@@ -18,8 +16,7 @@ function ConceptDiagram({ type = 'cube', size = 120, className = '' }) {
   const ref = useRef(null)
   const stopRequested = useRef(false)
   const [playing, setPlaying] = useState(false)
-  const playingRef = useRef(false)
-  const { Component, cycleAnimation, onStart } = diagrams[type] ?? diagrams.cube
+  const { Component, cycleAnimation } = diagrams[type] ?? diagrams.cube
 
   useEffect(() => {
     const host = ref.current?.closest('[data-diagram-host]')
@@ -27,9 +24,6 @@ function ConceptDiagram({ type = 'cube', size = 120, className = '' }) {
 
     const start = () => {
       stopRequested.current = false
-      // A fresh hover (not re-entering mid-cycle) moves the puzzle on
-      if (!playingRef.current) onStart?.()
-      playingRef.current = true
       setPlaying(true)
     }
     const stop = (event) => {
@@ -48,11 +42,10 @@ function ConceptDiagram({ type = 'cube', size = 120, className = '' }) {
       host.removeEventListener('focusin', start)
       host.removeEventListener('focusout', stop)
     }
-  }, [onStart])
+  }, [])
 
   const handleIteration = (event) => {
     if (event.animationName === cycleAnimation && stopRequested.current) {
-      playingRef.current = false
       setPlaying(false)
     }
   }

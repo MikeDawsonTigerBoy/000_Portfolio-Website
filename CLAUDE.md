@@ -33,9 +33,9 @@ Guidance for Claude Code when working in this repo.
 
 **MVP focus (SCRUM-32):** the site's job is to show Mike can iterate and get hired. Art and Music stay in the code with `hidden: true` in `src/data/sections.js`: no nav link, no home card, and their URLs redirect home. To work on them locally, add `VITE_SHOW_HIDDEN_SECTIONS=true` to `.env.local` and restart `npm run dev`. Don't feature more prototypes or unhide sections unless Mike asks.
 
-**Identity (SCRUM-37):** "Mike Dawson — Product Builder Portfolio". Copy stays location-neutral: based in Cape Town, free to relocate. Don't name a target city. Section colours: Product is orange `#e43804` (black text on it), About is black, Blog is grey.
+**Identity (SCRUM-37):** "Mike Dawson — Product Builder Portfolio". No location anywhere on the site (no city, no "free to relocate"): Mike is geographically mobile. Section colours: Product is orange `#e43804` (black text on it), About is black, Blog is grey.
 
-**Cube puzzle (SCRUM-40):** the Rubik's cube uses a 9-colour palette (`--cube-*` in `tokens.css`). Each hover moves every cube one state closer to solved, from 1 (jumbled) to 4 (solved). Progress is stored in the visitor's browser under `md-cube-hovers`; see `src/components/diagrams/cubePuzzle.js`.
+**Prototype colours (SCRUM-40):** each prototype has a `colour` in `src/data/projects.js` (001 = Product orange, the rest are `--swatch-*` in `tokens.css`). It floods the card on hover and fills that prototype's No. cell in the Under development table. The card cube is a colourless wireframe: black lines at rest, off-white on the colour. Project-page heroes show a static off-white 3 × 3 grid spanning the title's first two lines (`src/lib/useCapGrid.js`), not the animation.
 
 ## Prototype formats
 
@@ -66,6 +66,7 @@ Playwright runs on every PR, but check real phones before merging layout changes
 - **Never push to `main`.** Work on a branch and open a PR to `main`. Merging the PR is what deploys.
 - **Clean up merged branches.** After a PR is merged, delete its branch locally and on GitHub. The repo auto-deletes head branches on merge, so check it's gone (`git fetch --prune`) and delete the local copy with `git branch -d <branch>`.
 - **Mike approves every merge.** He merges on GitHub, or tells Claude to merge, after reviewing the Vercel preview. Never merge without his say-so.
+- **Review flow for every task:** branch → build and check it in the local preview → automated tests → PR on GitHub (Vercel preview link) → Jira ticket to Peer Review → Mike reviews and approves → merge → Jira ticket to Done. Never move a ticket to Done before its PR is merged.
 - **Close the Jira ticket on merge.** Once a PR is merged, move its Jira ticket (from the branch name) to Done without asking, then tell Mike it's done. Ask first only if the merge is substantial or looks suspicious, e.g. unexpected files, commits by someone else, or changes beyond the ticket's scope.
 - **Never close an epic on merge.** If the branch names an epic (e.g. SCRUM-5), leave it open. When the last open ticket under an epic moves to Done, tell Mike and ask whether to close the epic.
 

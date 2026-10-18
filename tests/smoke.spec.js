@@ -95,14 +95,23 @@ test('a post link opens straight into its sheet', async ({ page }) => {
   await expect(page).toHaveURL(/\/blog$/)
 })
 
-// The site stays location-neutral (SCRUM-38)
-test('copy is location-neutral', async ({ page }) => {
-  for (const path of ['/', '/about']) {
+// No location anywhere on the site (SCRUM-38): Mike is geographically mobile.
+// The Under development table is skipped: 008's game is set over Cape Town.
+test('no location is stated anywhere', async ({ page }) => {
+  for (const path of ['/', '/about', '/product', '/blog']) {
     await page.goto(path)
-    await expect(page.locator('body')).not.toContainText('Berlin')
+    const text = await page.evaluate(() => {
+      const copy = document.body.cloneNode(true)
+      copy.querySelector('.product-upcoming')?.remove()
+      return copy.textContent
+    })
+    for (const word of ['Berlin', 'Cape Town', 'relocate', 'Location']) {
+      expect(text, `${path} mentions ${word}`).not.toContain(word)
+    }
   }
-  await expect(page.locator('.title-block')).toContainText('Product Builder Portfolio')
-  await expect(page.locator('.title-block')).toContainText('Free to relocate')
+  const footer = page.locator('.title-block')
+  await expect(footer).toContainText('Product Builder Portfolio')
+  await expect(footer).toContainText(/(January|February|March|April|May|June|July|August|September|October|November|December) \d{4}/)
 })
 
 test('product shows 001, 002 and 004, with the rest under development', async ({ page }, testInfo) => {
