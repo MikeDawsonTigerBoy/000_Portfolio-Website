@@ -66,7 +66,8 @@
 
 .contact-row__value {
   font-size: var(--text-xl);
-  overflow-wrap: anywhere;
+  /* An email address is one word: FitWords shrinks it rather than splitting it */
+  min-width: 0;
 }
 
 .contact-row__arrow {

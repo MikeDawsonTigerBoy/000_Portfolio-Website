@@ -1,3 +1,4 @@
+import FitWords from '../components/FitWords.jsx'
 import Reveal from '../components/Reveal.jsx'
 import SectionHero from '../components/SectionHero.jsx'
 import { contacts } from '../data/contact.js'
@@ -31,7 +32,9 @@ function About() {
               >
                 <span className="contact-row__number mono">{contact.number}</span>
                 <span className="contact-row__name mono">{contact.name}</span>
-                <span className="contact-row__value display">{contact.value}</span>
+                <FitWords className="contact-row__value display" fitKey={contact.value}>
+                  {contact.value}
+                </FitWords>
                 <span className="contact-row__arrow mono" aria-hidden="true">
                   ↗
                 </span>

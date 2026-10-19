@@ -173,3 +173,42 @@ test('project 004 previews for the visitor’s device', async ({ page }, testInf
   await expectNoHorizontalScroll(page)
   await screenshot(page, testInfo, 'product-004')
 })
+
+// No word may be cut in half on any screen (SCRUM-42). For every heading and
+// display line, each word must sit on one line and fit inside its box; a word
+// whose letters land on two lines, or that runs past its box, fails the test.
+const WORD_PAGES = ['/', '/product', '/product/001', '/product/002', '/product/004', '/blog', '/about', '/blog/a-weekend-of-building']
+
+test('no word is split across lines or cut off', async ({ page }) => {
+  const all = []
+  for (const path of WORD_PAGES) {
+    await page.goto(path)
+    await page.evaluate(() => document.fonts.ready)
+    await page.waitForTimeout(900) // let entry animations settle
+    const problems = await page.evaluate(() => {
+      const found = []
+      const selector = 'h1, h2, h3, .display, .folder__title, .project-card__title, .entry-card__title'
+      for (const el of document.querySelectorAll(selector)) {
+        if (!el.getClientRects().length) continue
+        const box = el.getBoundingClientRect()
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
+        for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+          const re = /[^\s\-–—]+/g
+          for (let match = re.exec(node.data); match; match = re.exec(node.data)) {
+            const range = document.createRange()
+            range.setStart(node, match.index)
+            range.setEnd(node, match.index + match[0].length)
+            const rects = [...range.getClientRects()].filter((r) => r.width > 0)
+            const lines = new Set(rects.map((r) => Math.round(r.top)))
+            const right = Math.max(...rects.map((r) => r.right))
+            if (lines.size > 1) found.push(`"${match[0]}" is split across ${lines.size} lines`)
+            else if (right > box.right + 1) found.push(`"${match[0]}" runs past its box by ${Math.round(right - box.right)}px`)
+          }
+        }
+      }
+      return found
+    })
+    all.push(...problems.map((problem) => `${path}: ${problem}`))
+  }
+  expect(all, all.join(' | ')).toEqual([])
+})

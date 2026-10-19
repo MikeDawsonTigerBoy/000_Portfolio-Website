@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
+import FitWords from './FitWords.jsx'
 import './PostSheet.css'
 
 const SLIDE_MS = 420
@@ -99,9 +100,9 @@ function PostSheet({ post, onClosed }) {
               <span>Field note {post.number}</span>
               <span>{post.date}</span>
             </p>
-            <h2 id="post-sheet-title" className="post-sheet__title display">
+            <FitWords as="h2" id="post-sheet-title" className="post-sheet__title display" fitKey={post.slug}>
               {post.title}
-            </h2>
+            </FitWords>
             <p className="post-sheet__kicker">{post.kicker}</p>
           </header>
           <div className="post-sheet__body container">
