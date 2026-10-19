@@ -1,3 +1,4 @@
+import FitWords from './FitWords.jsx'
 import Glyph from './Glyph.jsx'
 import './SectionHero.css'
 
@@ -16,7 +17,9 @@ function SectionHero({ section, children }) {
           <span>Sheet {section.number}</span>
           <span>{section.meta}</span>
         </div>
-        <h1 className="section-hero__title display">{section.title}</h1>
+        <FitWords as="h1" className="section-hero__title display" fitKey={section.title}>
+          {section.title}
+        </FitWords>
         <div className="section-hero__glyph">
           <Glyph type={section.glyph} />
         </div>

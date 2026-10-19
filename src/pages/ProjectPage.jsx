@@ -5,12 +5,14 @@ import ReflectionCard from '../components/ReflectionCard.jsx'
 import Reveal from '../components/Reveal.jsx'
 import { featuredProjects, findProject, formats, projects } from '../data/projects.js'
 import { useCapGrid } from '../lib/useCapGrid.js'
+import { useFitWords } from '../lib/useFitWords.js'
 import './ProjectPage.css'
 
 function ProjectPage() {
   const { number } = useParams()
   const project = findProject(number)
   const titleRef = useRef(null)
+  useFitWords(titleRef, [number])
   const grid = useCapGrid(titleRef, [number])
 
   if (!project) return <Navigate to="/product" replace />

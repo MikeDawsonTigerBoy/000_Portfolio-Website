@@ -17,6 +17,8 @@ export default defineConfig({
   projects: [
     { name: 'desktop-chromium', use: { ...devices['Desktop Chrome'] } },
     { name: 'iphone-15-webkit', use: { ...devices['iPhone 15'] } },
+    // Mike's own phone, and the narrowest current iPhone (375px wide)
+    { name: 'iphone-12-mini-webkit', use: { ...devices['iPhone 12 Mini'] } },
     { name: 'pixel-7-chromium', use: { ...devices['Pixel 7'] } },
   ],
   webServer: {
