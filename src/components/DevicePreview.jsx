@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { formats } from '../data/projects.js'
 import { detectPlatform, launchUrlFor } from '../lib/platform.js'
 import './DevicePreview.css'
 
@@ -8,18 +9,19 @@ const devices = {
   android: { label: 'Android', model: 'Pixel 8', width: 412, height: 915 },
 }
 
-const platformNames = { ios: 'iPhone', android: 'Android phone' }
+const platformNames = { ios: 'iPhone', android: 'Android phone', desktop: 'browser' }
 
 /*
  * Shows a prototype running on a phone.
  * Desktop: iPhone / Android frames with a toggle, the web build running inside.
  * Phone:   a button that opens this platform's build (or the web build) full screen.
+ * Web apps skip the phone frames everywhere: they're desktop tools, so they open full screen too.
  */
 function DevicePreview({ project }) {
   const [platform] = useState(detectPlatform)
   const [device, setDevice] = useState('ios')
 
-  if (platform !== 'desktop') {
+  if (platform !== 'desktop' || formats[project.format].frames === false) {
     const launchUrl = launchUrlFor(project, platform)
     return (
       <div className="device-launch">

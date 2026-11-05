@@ -114,18 +114,18 @@ test('no location is stated anywhere', async ({ page }) => {
   await expect(footer).toContainText(/(January|February|March|April|May|June|July|August|September|October|November|December) \d{4}/)
 })
 
-test('product shows 001, 002 and 004, with the rest under development', async ({ page }, testInfo) => {
+test('product shows 001, 002, 004 and 009, with the rest under development', async ({ page }, testInfo) => {
   await page.goto('/product')
   const cards = page.locator('a.project-card')
-  await expect(cards).toHaveCount(3)
-  for (const number of ['001', '002', '004']) {
+  await expect(cards).toHaveCount(4)
+  for (const number of ['001', '002', '004', '009']) {
     await expect(page.locator(`a.project-card[href="/product/${number}"]`)).toHaveCount(1)
   }
 
   const rows = page.locator('.product-upcoming__table tbody tr')
-  await expect(rows).toHaveCount(7)
+  await expect(rows).toHaveCount(6)
   await expect(rows.first().locator('td').first()).toHaveText('003')
-  await expect(page.locator('.product-upcoming__table')).toContainText('Air City')
+  await expect(page.locator('.product-upcoming__table')).toContainText('Tonicity')
 
   // Descriptions are blank until a row is hovered (desktop); touch screens always show them
   if (!isMobile(testInfo)) {
@@ -137,7 +137,7 @@ test('product shows 001, 002 and 004, with the rest under development', async ({
   }
 
   // Unfeatured prototypes have no page of their own yet
-  await page.goto('/product/009')
+  await page.goto('/product/010')
   await expect(page).toHaveURL(/\/product$/)
   await page.goto('/product')
   await expectNoHorizontalScroll(page)
@@ -174,10 +174,24 @@ test('project 004 previews for the visitor’s device', async ({ page }, testInf
   await screenshot(page, testInfo, 'product-004')
 })
 
+test('project 009 opens the Air City web app full screen', async ({ page }, testInfo) => {
+  await page.goto('/product/009')
+  await expect(page.getByRole('heading', { level: 1, name: 'Air City' })).toBeVisible()
+  await expect(page.locator('.device-frame')).toHaveCount(0)
+  const launch = page.locator('a.device-launch__button')
+  await expect(launch).toHaveAttribute('href', '/air-city/index.html')
+
+  // The app itself is served as static files, not caught by the site's index.html rewrite
+  await page.goto('/air-city/index.html')
+  await expect(page.getByText('Where do you live?')).toBeVisible()
+  await expectNoHorizontalScroll(page)
+  await screenshot(page, testInfo, 'product-009')
+})
+
 // No word may be cut in half on any screen (SCRUM-42). For every heading and
 // display line, each word must sit on one line and fit inside its box; a word
 // whose letters land on two lines, or that runs past its box, fails the test.
-const WORD_PAGES = ['/', '/product', '/product/001', '/product/002', '/product/004', '/blog', '/about', '/blog/a-weekend-of-building']
+const WORD_PAGES = ['/', '/product', '/product/001', '/product/002', '/product/004', '/product/009', '/blog', '/about', '/blog/a-weekend-of-building']
 
 test('no word is split across lines or cut off', async ({ page }) => {
   const all = []
