@@ -33,7 +33,7 @@ One link that shows how Mike thinks and ships. Each case study runs from problem
 ## 4. Core functionality
 
 - A home page with three entry points: Product, Blog and About.
-- A product section with cards for the three featured prototypes (001, 002, 004), each with its own page: device previews, a demo and a Reflection card with up to 5 lessons. Below them, an Under development table lists the parked prototypes.
+- A product section with cards for the four featured prototypes (001, 002, 004, 009), each with its own page: device previews, a demo and a Reflection card with up to 5 lessons. 009 Air City is a desktop web app, so its page opens it full screen instead; its build lives in `public/air-city`. Below them, an Under development table lists the parked prototypes.
 - A blog of field notes, shown as a stack of folders; each post opens as a sheet with its own link. Three drafts so far.
 - About and contact, with email and LinkedIn.
 - Music (releases and players for Spotify, Apple Music and YouTube) and Art are built but hidden for the MVP.

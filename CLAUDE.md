@@ -25,7 +25,7 @@ Guidance for Claude Code when working in this repo.
 | Page | Purpose |
 | --- | --- |
 | Home | Landing page with three entry points: the first three published sections (now Product, Blog, About). Header nav: About, Product, Blog. |
-| Product | Featured prototypes only (001, 002, 004: `featured` in `src/data/projects.js`) as cards with their own pages, then an Under development table for the rest |
+| Product | Featured prototypes only (001, 002, 004, 009: `featured` in `src/data/projects.js`) as cards with their own pages, then an Under development table for the rest |
 | Music | **Hidden for the MVP.** Releases and links to Spotify, Apple Music, YouTube |
 | Art | **Hidden for the MVP.** Visual / architectural work |
 | About / Contact | Background, email and LinkedIn (`src/data/contact.js`) |
@@ -42,7 +42,7 @@ Guidance for Claude Code when working in this repo.
 Decided in SCRUM-28. Set per project as `format` in `src/data/projects.js`.
 
 - **Expo (React Native) by default.** One codebase builds iOS, Android and web. Its web build is what runs in the portfolio's phone frames. Test it on a phone with Expo Go.
-- **Plain React web for dashboard-style tools:** 005 Financial Behaviour Analysis Tool and 009 Air City.
+- **Plain React web for dashboard-style tools:** 005 Financial Behaviour Analysis Tool and 009 Air City. These skip the phone frames and open full screen. 009's build is copied from its repo into `public/air-city`.
 - **010 Tonicity is an Ableton plugin.** It gets a video demo, not a phone preview.
 
 Each project page (`/product/001` … `/product/010`) shows:

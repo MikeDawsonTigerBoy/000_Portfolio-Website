@@ -19,7 +19,7 @@ export const sections = [
     title: 'Product',
     path: '/product',
     summary: 'AI product prototypes, from problem framing to working build.',
-    meta: '3 in development',
+    meta: '4 in development',
     glyph: 'grid',
   },
   {

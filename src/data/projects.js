@@ -6,7 +6,7 @@ const GITHUB = 'https://github.com/MikeDawsonTigerBoy'
 //   plugin – Not a phone app (e.g. an Ableton plugin). Shown as a video, no device preview.
 export const formats = {
   expo: { label: 'Expo', platforms: 'iOS · Android · Web', preview: true },
-  web: { label: 'Web app', platforms: 'Web (desktop and mobile)', preview: true },
+  web: { label: 'Web app', platforms: 'Web, best on a laptop', preview: true, frames: false },
   plugin: { label: 'Plugin', platforms: 'Ableton Live', preview: false },
 }
 
@@ -15,14 +15,14 @@ export const MAX_REFLECTIONS = 5
 /*
  * Product prototypes.
  *
- * `featured` ones (001, 002, 004 for the MVP, SCRUM-33) get a card and a project page.
+ * `featured` ones (001, 002, 004 for the MVP, SCRUM-33, plus 009 for ClawCamp Berlin) get a card and a project page.
  * The rest appear only in the Under development table on the Product page (SCRUM-34).
  * Summaries are the first line of each prototype's README.
  *
  * Optional fields per project:
  *   featured    – shown as a card with its own page
  *   summary     – one sentence for the card, page and Under development table
- *   demoUrl     – the live web build, shown inside the phone frames
+ *   demoUrl     – the live web build, shown inside the phone frames (or opened full screen, for web apps)
  *   iosUrl      – iOS-specific link (TestFlight, App Store, Expo Go); used on iPhones
  *   androidUrl  – Android-specific link (Play Store, Expo Go, APK); used on Android phones
  *   videoUrl    – demo video, for plugins
@@ -94,7 +94,11 @@ const rawProjects = [
     title: 'Air City',
     repo: '009_Air_City',
     format: 'web',
-    summary: 'Municipal rent control data management system and data visualiser.',
+    featured: true,
+    summary:
+      'Data analytics for urban ecosystems fighting the ongoing battle against short term rentals, housing crisis pressures and preserving human-centred urban life where it continues to exist.',
+    // Built from the 009_Air_City repo (npm run build) and copied into public/air-city
+    demoUrl: '/air-city/index.html',
   },
   {
     number: '010',

@@ -12,7 +12,7 @@ function Product() {
     <>
       <SectionHero section={section}>
         <p>
-          Three AI product prototypes in active development, each taken from a real problem to
+          Four AI product prototypes in active development, each taken from a real problem to
           working code. The rest of the drawing set is listed below.
         </p>
       </SectionHero>
