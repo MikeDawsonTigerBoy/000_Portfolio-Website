@@ -13,6 +13,7 @@ Live at https://mike-dawson.vercel.app
   - **001 Decision Memory Layer:** a serious problem from Mike's own field.
   - **002 Hitchhiker's Guide to the City:** started at the hackathon.
   - **004 Shazanguage:** Mike's own idea.
+- **Since added (Nov 2026):** 009 Air City, and **012 Mind Graft**, from a Claude Community hackathon (top 6 of 14 teams).
 - The other seven prototypes are parked. They appear only in a short **Under development** table on the Product page (number, name, one line), never as "coming soon" cards.
 - **MVP focus:** Music and Art are built but hidden from the deployed site, so the site says one clear thing.
 - **No location on the site.** Mike is geographically mobile.
@@ -33,7 +34,7 @@ One link that shows how Mike thinks and ships. Each case study runs from problem
 ## 4. Core functionality
 
 - A home page with three entry points: Product, Blog and About.
-- A product section with cards for the four featured prototypes (001, 002, 004, 009), each with its own page: device previews, a demo and a Reflection card with up to 5 lessons. 009 Air City is a desktop web app, so its page opens it full screen instead; its build lives in `public/air-city`. Below them, an Under development table lists the parked prototypes.
+- A product section with cards for the five featured prototypes (001, 002, 004, 009, 012), each with its own page. Every page has the same sections: at-a-glance statements (why, problem, solution, how, validation, success metrics, next, collaborate), the slide deck, a write-up of about 1,000 words, the prototype, a tech stack diagram, related blog posts and a Reflection card with up to 5 lessons. Missing sections show a placeholder until written. 009 Air City and 012 Mind Graft are desktop web apps, so their pages open them full screen; their builds live in `public/air-city` and `public/mind-graft`. Below them, an Under development table lists the parked prototypes.
 - A blog of field notes, shown as a stack of folders; each post opens as a sheet with its own link. Three drafts so far.
 - About and contact, with email and LinkedIn.
 - Music (releases and players for Spotify, Apple Music and YouTube) and Art are built but hidden for the MVP.

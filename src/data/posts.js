@@ -111,6 +111,53 @@ export const posts = [
       { type: 'todo', text: 'Names of the people who have helped and guided me, and a line on what each one taught me.' },
     ],
   },
+  {
+    slug: 'claude-hackathon-mind-graft',
+    number: '04',
+    date: '7 November 2026',
+    title: 'Drawing the shape of a thought',
+    kicker: 'A Claude hackathon, and Mind Graft',
+    project: '012',
+    body: [
+      {
+        type: 'p',
+        text: 'At a Claude Community hackathon our team asked a simple question: do large language models argue the way people do? Out of fourteen teams we finished in the top six. My part became Mind Graft, a way to see the shape of reasoning instead of reading it.',
+      },
+      { type: 'photo', caption: 'The hackathon' },
+      { type: 'h', text: 'The hunch' },
+      {
+        type: 'p',
+        text: 'AI answers often feel complete but go nowhere: they restate the question, make three tidy points and end by saying it all again. Human answers are rougher but move forward. I wanted to test that, so I cut 100 pairs of human and ChatGPT answers into small units of meaning, labelled how each one builds on the others, and drew every answer as a 3D graph.',
+      },
+      { type: 'h', text: 'What the graphs showed' },
+      {
+        type: 'list',
+        items: [
+          'ChatGPT came back to earlier points about twice as often as people, and ended in a circle three times as often.',
+          'People went deeper: more steps of reasoning built on each other.',
+          'ChatGPT gave about twice as much advice nobody asked for. People used more examples and more hedges.',
+          'Both sides considered the other view about equally often.',
+        ],
+      },
+      { type: 'h', text: 'Five learnings' },
+      {
+        type: 'list',
+        items: [
+          'Make the abstract measurable before you build. “Circular” became testable once depth had a definition.',
+          'Hold the obvious variable constant. Matching answer length stopped long answers simply looking deep.',
+          'Treat your labels as a hypothesis until a second person agrees with them.',
+          'A live import beats a polished screenshot. Loading a new dataset on stage showed the method, not just a result.',
+          'In a team, keep clean boundaries. I built in parallel and took the team’s shared definitions in one direction only.',
+        ],
+      },
+      {
+        type: 'todo',
+        text: 'The team and what each person built, the judges’ feedback, and one moment from the day.',
+      },
+      { type: 'photo', caption: 'Mind Graft on screen' },
+      { type: 'link', href: '/product/012', text: 'See Mind Graft on the Product page' },
+    ],
+  },
 ]
 
 export const findPost = (slug) => posts.find((post) => post.slug === slug)

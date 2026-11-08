@@ -46,7 +46,8 @@
   gap: var(--space-4);
   width: min(320px, 40%);
   height: var(--tab-h);
-  margin-left: min(calc(var(--i) * 28%), calc(100% - min(320px, 40%)));
+  /* Tabs spread evenly across the free width, however many posts there are */
+  margin-left: min(calc(var(--i) * 28%), calc(var(--i) * (100% - min(320px, 40%)) / max(1, var(--folders) - 1)));
   margin-bottom: -1px;
   padding: 0 var(--space-4);
   border: var(--line);
@@ -175,7 +176,7 @@
 
   .folder__tab {
     width: 60%;
-    margin-left: calc(var(--i) * 20%);
+    margin-left: calc(var(--i) * 40% / max(1, var(--folders) - 1));
   }
 
   .folder__open {
