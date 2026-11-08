@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import DevicePreview from '../components/DevicePreview.jsx'
+import { Description, ProjectPosts, SectionHead, SlideDeck, Statements, TechStack } from '../components/ProjectSections.jsx'
 import ReflectionCard from '../components/ReflectionCard.jsx'
 import Reveal from '../components/Reveal.jsx'
 import { featuredProjects, findProject, formats, projects } from '../data/projects.js'
@@ -67,6 +68,12 @@ function ProjectPage() {
             <dt className="mono">Status</dt>
             <dd>{project.demoUrl || project.videoUrl ? 'Live demo' : 'In progress'}</dd>
           </div>
+          {project.event && (
+            <div>
+              <dt className="mono">Built at</dt>
+              <dd>{project.event}</dd>
+            </div>
+          )}
           <div>
             <dt className="mono">Source</dt>
             <dd>
@@ -77,7 +84,21 @@ function ProjectPage() {
           </div>
         </dl>
 
+        {/* Standard sections, the same on every prototype page (CLAUDE.md, "Prototype pages") */}
+        <Reveal>
+          <Statements statements={project.statements} index={1} />
+        </Reveal>
+
+        <Reveal>
+          <SlideDeck slides={project.deck} index={2} />
+        </Reveal>
+
+        <Reveal>
+          <Description blocks={project.description} index={3} />
+        </Reveal>
+
         <Reveal className="project-page__demo">
+          <SectionHead index={4} title="Prototype" />
           {format.preview ? (
             <DevicePreview project={project} />
           ) : (
@@ -89,6 +110,14 @@ function ProjectPage() {
               )}
             </div>
           )}
+        </Reveal>
+
+        <Reveal>
+          <TechStack stack={project.techStack} index={5} />
+        </Reveal>
+
+        <Reveal>
+          <ProjectPosts number={project.number} index={6} />
         </Reveal>
 
         <Reveal>

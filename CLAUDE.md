@@ -25,7 +25,7 @@ Guidance for Claude Code when working in this repo.
 | Page | Purpose |
 | --- | --- |
 | Home | Landing page with three entry points: the first three published sections (now Product, Blog, About). Header nav: About, Product, Blog. |
-| Product | Featured prototypes only (001, 002, 004, 009: `featured` in `src/data/projects.js`) as cards with their own pages, then an Under development table for the rest |
+| Product | Featured prototypes only (001, 002, 004, 009, 012: `featured` in `src/data/projects.js`) as cards with their own pages, then an Under development table for the rest |
 | Music | **Hidden for the MVP.** Releases and links to Spotify, Apple Music, YouTube |
 | Art | **Hidden for the MVP.** Visual / architectural work |
 | About / Contact | Background, email and LinkedIn (`src/data/contact.js`) |
@@ -45,10 +45,26 @@ Decided in SCRUM-28. Set per project as `format` in `src/data/projects.js`.
 - **Plain React web for dashboard-style tools:** 005 Financial Behaviour Analysis Tool and 009 Air City. These skip the phone frames and open full screen. 009's build is copied from its repo into `public/air-city`.
 - **010 Tonicity is an Ableton plugin.** It gets a video demo, not a phone preview.
 
-Each project page (`/product/001` … `/product/010`) shows:
+Each project page (`/product/<number>`) shows:
 - **On desktop:** iPhone and Android frames running `demoUrl`.
 - **On phones:** a button that opens `iosUrl` or `androidUrl`, falling back to `demoUrl`.
 - **At the end:** a Reflection card with at most 5 lessons, from `reflections`.
+
+## Prototype pages: standard sections (rule)
+
+**Every featured prototype page has the same sections, in this order.** They live in `src/components/ProjectSections.jsx` and are rendered by `ProjectPage.jsx` for every project, so a newly featured prototype gets all of them automatically. A section whose data is missing shows a dashed "To be written" placeholder; never remove a section for one project.
+
+| # | Section | Data in `src/data/projects.js` |
+| --- | --- | --- |
+| 1 | **At a glance:** large-type statements a collaborator can skim in a minute | `statements`: `why`, `problem`, `solution`, `how`, `validation`, `metrics`, `next`, `collaborate` |
+| 2 | **Slide deck:** the presentation as slide images | `deck: deckSlides('/<folder>/deck', [titles])`, files `public/<folder>/deck/slide-01.png` … |
+| 3 | **The full story:** a write-up of about 1,000 words | `description`: paragraphs, with `{ h: 'Subheading' }` entries |
+| 4 | **Prototype:** the live demo | `demoUrl` / `iosUrl` / `androidUrl` / `videoUrl` |
+| 5 | **How it works:** a minimal left-to-right tech stack diagram plus insights | `techStack: { steps: [{ title, detail }], insights: [] }` |
+| 6 | **From the blog:** the event or learnings post | automatic: posts in `src/data/posts.js` whose `project` is the number |
+| 7 | **Reflection:** up to 5 lessons | `reflections` |
+
+When adding a prototype to the site: fill in as many of these as exist, add a blog post with its `project` number, and add the page to the Playwright lists in `tests/smoke.spec.js` (the "standard sections" test and `WORD_PAGES`). Slide decks made as Claude Slides artifacts are exported with the prototype repo's `scripts/render_deck.py` (see 012 Mind Graft); keep place names out of the images, per the no-location rule.
 
 ## Testing on real devices
 

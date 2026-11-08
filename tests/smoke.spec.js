@@ -73,15 +73,16 @@ test('blog folders open a post that slides up and closes back to the stack', asy
   await page.goto('/blog')
   await expect(page.locator('h1')).toContainText('Blog')
   const folders = page.locator('a.folder')
-  await expect(folders).toHaveCount(3)
+  await expect(folders).toHaveCount(4)
   await expectNoHorizontalScroll(page)
   await screenshot(page, testInfo, 'blog')
 
+  // The newest folder sits at the front of the stack
   await folders.last().click()
-  await expect(page).toHaveURL(/\/blog\/a-weekend-of-building$/)
+  await expect(page).toHaveURL(/\/blog\/claude-hackathon-mind-graft$/)
   const sheet = page.getByRole('dialog')
   await expect(sheet).toBeVisible()
-  await expect(sheet.locator('h2')).toHaveText('A weekend of building')
+  await expect(sheet.locator('h2')).toHaveText('Drawing the shape of a thought')
 
   await page.keyboard.press('Escape')
   await expect(page).toHaveURL(/\/blog$/)
@@ -114,11 +115,11 @@ test('no location is stated anywhere', async ({ page }) => {
   await expect(footer).toContainText(/(January|February|March|April|May|June|July|August|September|October|November|December) \d{4}/)
 })
 
-test('product shows 001, 002, 004 and 009, with the rest under development', async ({ page }, testInfo) => {
+test('product shows 001, 002, 004, 009 and 012, with the rest under development', async ({ page }, testInfo) => {
   await page.goto('/product')
   const cards = page.locator('a.project-card')
-  await expect(cards).toHaveCount(4)
-  for (const number of ['001', '002', '004', '009']) {
+  await expect(cards).toHaveCount(5)
+  for (const number of ['001', '002', '004', '009', '012']) {
     await expect(page.locator(`a.project-card[href="/product/${number}"]`)).toHaveCount(1)
   }
 
@@ -188,10 +189,50 @@ test('project 009 opens the Air City web app full screen', async ({ page }, test
   await screenshot(page, testInfo, 'product-009')
 })
 
+// Every featured prototype page has the same standard sections, filled in or as placeholders
+const SECTIONS = ['At a glance', 'Slide deck', 'The full story', 'Prototype', 'How it works', 'From the blog', 'Reflection']
+
+test('every prototype page has the standard sections', async ({ page }) => {
+  for (const number of ['001', '002', '004', '009', '012']) {
+    await page.goto(`/product/${number}`)
+    for (const name of SECTIONS) {
+      await expect(page.getByRole('heading', { level: 2, name, exact: true })).toHaveCount(1)
+    }
+  }
+  // 001 has nothing written yet, so it shows placeholders
+  await page.goto('/product/001')
+  await expect(page.locator('.psection__placeholder').first()).toBeVisible()
+})
+
+test('project 012 Mind Graft shows its deck, story, demo and blog post', async ({ page }, testInfo) => {
+  await page.goto('/product/012')
+  await expect(page.getByRole('heading', { level: 1, name: 'Mind Graft' })).toBeVisible()
+  await expect(page.locator('.statement:not(.statement--empty)')).toHaveCount(8)
+
+  // Slide deck: steps forward and wraps backwards
+  const count = page.locator('.deck__count')
+  await expect(count).toContainText('01 / 18')
+  await page.getByRole('button', { name: 'Next slide' }).click()
+  await expect(count).toContainText('02 / 18')
+  await page.getByRole('button', { name: 'Previous slide' }).click()
+  await page.getByRole('button', { name: 'Previous slide' }).click()
+  await expect(count).toContainText('18 / 18')
+
+  await expect(page.locator('.stack__step')).toHaveCount(5)
+  await expect(page.locator('a.project-posts__link')).toHaveAttribute('href', '/blog/claude-hackathon-mind-graft')
+  await expect(page.locator('a.device-launch__button')).toHaveAttribute('href', '/mind-graft/index.html')
+  await expectNoHorizontalScroll(page)
+  await screenshot(page, testInfo, 'product-012')
+
+  // The analyser is a static single-file app
+  await page.goto('/mind-graft/index.html')
+  await expect(page.getByRole('heading', { name: 'Language Analyser' })).toBeVisible()
+})
+
 // No word may be cut in half on any screen (SCRUM-42). For every heading and
 // display line, each word must sit on one line and fit inside its box; a word
 // whose letters land on two lines, or that runs past its box, fails the test.
-const WORD_PAGES = ['/', '/product', '/product/001', '/product/002', '/product/004', '/product/009', '/blog', '/about', '/blog/a-weekend-of-building']
+const WORD_PAGES = ['/', '/product', '/product/001', '/product/002', '/product/004', '/product/009', '/product/012', '/blog', '/about', '/blog/a-weekend-of-building', '/blog/claude-hackathon-mind-graft']
 
 test('no word is split across lines or cut off', async ({ page }) => {
   const all = []
