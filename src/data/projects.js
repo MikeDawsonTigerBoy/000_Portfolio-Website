@@ -15,8 +15,8 @@ export const MAX_REFLECTIONS = 5
 /*
  * Product prototypes.
  *
- * `featured` ones (001, 002, 004 for the MVP, SCRUM-33, plus 009 for ClawCamp Berlin and 012 from the Claude Community
- * hackathon) get a card and a project page. The rest appear only in the Under development table on the Product page (SCRUM-34).
+ * `featured` ones (009 from ClawCamp Berlin and 012 from the Claude Community hackathon: the two with something
+ * to look at) get a card and a project page. The rest appear only in the Under development table on the Product page (SCRUM-34).
  * Summaries are the first line of each prototype's README.
  *
  * Optional fields per project:
@@ -62,7 +62,6 @@ const rawProjects = [
     title: 'Decision Memory Layer',
     repo: '001_Decision-Memory-Layer',
     format: 'expo',
-    featured: true,
     summary: 'A Revit plug-in and web app that records why major design decisions were made, like commit history for buildings.',
   },
   {
@@ -70,7 +69,6 @@ const rawProjects = [
     title: 'Hitchhiker’s Guide to the City',
     repo: '002_Hitchhiker-s-Guide-To-The-City',
     format: 'expo',
-    featured: true,
     summary: 'A travel app that gives you personalised recommendations along your route.',
   },
   {
@@ -85,7 +83,6 @@ const rawProjects = [
     title: 'Shazanguage',
     repo: '004_Shazanguage',
     format: 'expo',
-    featured: true,
     summary: 'Shazam for languages: tap to listen, find out which language is being spoken, and learn how to say hello in it.',
   },
   {

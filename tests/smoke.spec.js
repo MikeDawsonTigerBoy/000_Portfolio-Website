@@ -115,17 +115,17 @@ test('no location is stated anywhere', async ({ page }) => {
   await expect(footer).toContainText(/(January|February|March|April|May|June|July|August|September|October|November|December) \d{4}/)
 })
 
-test('product shows 001, 002, 004, 009 and 012, with the rest under development', async ({ page }, testInfo) => {
+test('product shows 009 and 012, with the rest under development', async ({ page }, testInfo) => {
   await page.goto('/product')
   const cards = page.locator('a.project-card')
-  await expect(cards).toHaveCount(5)
-  for (const number of ['001', '002', '004', '009', '012']) {
+  await expect(cards).toHaveCount(2)
+  for (const number of ['009', '012']) {
     await expect(page.locator(`a.project-card[href="/product/${number}"]`)).toHaveCount(1)
   }
 
   const rows = page.locator('.product-upcoming__table tbody tr')
-  await expect(rows).toHaveCount(6)
-  await expect(rows.first().locator('td').first()).toHaveText('003')
+  await expect(rows).toHaveCount(9)
+  await expect(rows.first().locator('td').first()).toHaveText('001')
   await expect(page.locator('.product-upcoming__table')).toContainText('Tonicity')
 
   // Descriptions are blank until a row is hovered (desktop); touch screens always show them
@@ -138,41 +138,13 @@ test('product shows 001, 002, 004, 009 and 012, with the rest under development'
   }
 
   // Unfeatured prototypes have no page of their own yet
-  await page.goto('/product/010')
-  await expect(page).toHaveURL(/\/product$/)
+  for (const number of ['004', '010']) {
+    await page.goto(`/product/${number}`)
+    await expect(page).toHaveURL(/\/product$/)
+  }
   await page.goto('/product')
   await expectNoHorizontalScroll(page)
   await screenshot(page, testInfo, 'product')
-})
-
-test('project 004 previews for the visitor’s device', async ({ page }, testInfo) => {
-  await page.goto('/product/004')
-  await expect(page.getByRole('heading', { level: 1, name: 'Shazanguage' })).toBeVisible()
-
-  if (isMobile(testInfo)) {
-    // Phones get a launch panel for their own platform, never device frames.
-    await expect(page.locator('.device-frame')).toHaveCount(0)
-    await expect(page.locator('.device-launch')).toBeVisible()
-    const phone = testInfo.project.name.startsWith('iphone') ? 'iPhone' : 'Android phone'
-    await expect(page.locator('.device-launch__label')).toHaveText(`On your ${phone}`)
-  } else {
-    await expect(page.locator('.device-launch')).toHaveCount(0)
-    const iphoneTab = page.getByRole('tab', { name: 'iPhone' })
-    const androidTab = page.getByRole('tab', { name: 'Android' })
-    await expect(iphoneTab).toHaveAttribute('aria-selected', 'true')
-    await expect(page.locator('.device-frame--ios')).toBeVisible()
-
-    await androidTab.click()
-    await expect(androidTab).toHaveAttribute('aria-selected', 'true')
-    await expect(page.locator('.device-frame--android')).toBeVisible()
-    await expect(page.locator('.device-frame--ios')).toHaveCount(0)
-
-    await iphoneTab.click()
-    await expect(page.locator('.device-frame--ios')).toBeVisible()
-  }
-
-  await expectNoHorizontalScroll(page)
-  await screenshot(page, testInfo, 'product-004')
 })
 
 test('project 009 opens the Air City web app full screen', async ({ page }, testInfo) => {
@@ -193,14 +165,14 @@ test('project 009 opens the Air City web app full screen', async ({ page }, test
 const SECTIONS = ['At a glance', 'Slide deck', 'The full story', 'Prototype', 'How it works', 'From the blog', 'Reflection']
 
 test('every prototype page has the standard sections', async ({ page }) => {
-  for (const number of ['001', '002', '004', '009', '012']) {
+  for (const number of ['009', '012']) {
     await page.goto(`/product/${number}`)
     for (const name of SECTIONS) {
       await expect(page.getByRole('heading', { level: 2, name, exact: true })).toHaveCount(1)
     }
   }
-  // 001 has nothing written yet, so it shows placeholders
-  await page.goto('/product/001')
+  // 009 has nothing written yet, so it shows placeholders
+  await page.goto('/product/009')
   await expect(page.locator('.psection__placeholder').first()).toBeVisible()
 })
 
@@ -232,7 +204,7 @@ test('project 012 Mind Graft shows its deck, story, demo and blog post', async (
 // No word may be cut in half on any screen (SCRUM-42). For every heading and
 // display line, each word must sit on one line and fit inside its box; a word
 // whose letters land on two lines, or that runs past its box, fails the test.
-const WORD_PAGES = ['/', '/product', '/product/001', '/product/002', '/product/004', '/product/009', '/product/012', '/blog', '/about', '/blog/a-weekend-of-building', '/blog/claude-hackathon-mind-graft']
+const WORD_PAGES = ['/', '/product', '/product/009', '/product/012', '/blog', '/about', '/blog/a-weekend-of-building', '/blog/claude-hackathon-mind-graft']
 
 test('no word is split across lines or cut off', async ({ page }) => {
   const all = []

@@ -1,13 +1,14 @@
 import DimensionLine from '../components/DimensionLine.jsx'
 import EntryCard from '../components/EntryCard.jsx'
 import Reveal from '../components/Reveal.jsx'
+import { featuredProjects, upcomingProjects } from '../data/projects.js'
 import { entrySections } from '../data/sections.js'
 import './Home.css'
 
 const facts = [
   { value: '09', label: 'Years of international architectural delivery' },
-  { value: '03', label: 'AI prototypes in active development' },
-  { value: '07', label: 'More prototypes on the drawing board' },
+  { value: String(featuredProjects.length).padStart(2, '0'), label: 'AI prototypes you can try' },
+  { value: String(upcomingProjects.length).padStart(2, '0'), label: 'More prototypes on the drawing board' },
 ]
 
 function Home() {

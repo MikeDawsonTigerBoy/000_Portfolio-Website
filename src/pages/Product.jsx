@@ -12,8 +12,8 @@ function Product() {
     <>
       <SectionHero section={section}>
         <p>
-          Four AI product prototypes in active development, each taken from a real problem to
-          working code. The rest of the drawing set is listed below.
+          Two AI product prototypes you can try, each taken from a real problem to working
+          code. The rest of the drawing set is listed below.
         </p>
       </SectionHero>
 
@@ -22,7 +22,7 @@ function Product() {
           <h2 id="product-set-title">In development</h2>
           <span>{featuredProjects.map((project) => project.number).join(' · ')}</span>
         </div>
-        <ul className="product__grid">
+        <ul className="product__grid" style={{ '--product-columns': Math.min(3, featuredProjects.length) }}>
           {featuredProjects.map((project, index) => (
             <Reveal as="li" key={project.repo} delay={(index % 3) * 100} className="product__cell">
               <ProjectCard project={project} />

@@ -25,7 +25,7 @@ Guidance for Claude Code when working in this repo.
 | Page | Purpose |
 | --- | --- |
 | Home | Landing page with three entry points: the first three published sections (now Product, Blog, About). Header nav: About, Product, Blog. |
-| Product | Featured prototypes only (001, 002, 004, 009, 012: `featured` in `src/data/projects.js`) as cards with their own pages, then an Under development table for the rest |
+| Product | Featured prototypes only (009, 012: `featured` in `src/data/projects.js`) as cards with their own pages, then an Under development table for the rest. Only prototypes with something to try are featured |
 | Music | **Hidden for the MVP.** Releases and links to Spotify, Apple Music, YouTube |
 | Art | **Hidden for the MVP.** Visual / architectural work |
 | About / Contact | Background, email and LinkedIn (`src/data/contact.js`) |
