@@ -41,7 +41,7 @@ export const posts = [
         type: 'p',
         text: 'Shazanguage is one of the three prototypes I’m actively developing. It’s being built with Expo, so one codebase runs on iPhone, Android and the web. That means you’ll be able to try it right here in a phone preview.',
       },
-      { type: 'link', href: '/product/004', text: 'See Shazanguage on the Product page' },
+      { type: 'link', href: '/product', text: 'See Shazanguage on the Product page' },
     ],
   },
   {

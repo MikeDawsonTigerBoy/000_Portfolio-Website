@@ -34,7 +34,7 @@ One link that shows how Mike thinks and ships. Each case study runs from problem
 ## 4. Core functionality
 
 - A home page with three entry points: Product, Blog and About.
-- A product section with cards for the five featured prototypes (001, 002, 004, 009, 012), each with its own page. Every page has the same sections: at-a-glance statements (why, problem, solution, how, validation, success metrics, next, collaborate), the slide deck, a write-up of about 1,000 words, the prototype, a tech stack diagram, related blog posts and a Reflection card with up to 5 lessons. Missing sections show a placeholder until written. 009 Air City and 012 Mind Graft are desktop web apps, so their pages open them full screen; their builds live in `public/air-city` and `public/mind-graft`. Below them, an Under development table lists the parked prototypes.
+- A product section with cards for the two featured prototypes (009 Air City and 012 Mind Graft), the ones with something to try, each with its own page. Every page has the same sections: at-a-glance statements (why, problem, solution, how, validation, success metrics, next, collaborate), the slide deck, a write-up of about 1,000 words, the prototype, a tech stack diagram, related blog posts and a Reflection card with up to 5 lessons. Missing sections show a placeholder until written. 009 Air City and 012 Mind Graft are desktop web apps, so their pages open them full screen; their builds live in `public/air-city` and `public/mind-graft`. Below them, an Under development table lists the rest, including 001, 002 and 004 until they have a demo.
 - A blog of field notes, shown as a stack of folders; each post opens as a sheet with its own link. Three drafts so far.
 - About and contact, with email and LinkedIn.
 - Music (releases and players for Spotify, Apple Music and YouTube) and Art are built but hidden for the MVP.
@@ -64,13 +64,13 @@ The stack, hosting and tests are already in place. The real constraint is conten
 ## 9. Success metrics
 
 *(proposed)*
-- Case studies for 001, 002 and 004 are complete by the end of November 2026.
+- Case studies for 009 and 012 are complete by the end of November 2026.
 - The site gets mentioned in interviews or recruiter messages.
 - Product pages are read for more than 60 seconds (needs simple analytics).
 
 ## 10. Open questions and challenges
 
-1. **Depth or breadth?** *Resolved: three featured prototypes (001, 002 and 004). The parked ones are listed in a short Under development table on the Product page.*
+1. **Depth or breadth?** *Resolved: only prototypes with something to try get a card and a page, now 009 and 012. The rest, 001, 002 and 004 included, are listed in the Under development table on the Product page until they have a demo.*
 2. **Who comes first?** *Resolved for the MVP: Music and Art are hidden, and the home page leads with Product, Blog and About.*
 3. **Is 011 Slow Craftsman on the site?** The site currently lists 001–010.
 4. **Is the story clear?** The headline is "Architect turned product thinker". Does each prototype show a skill a PM is hired for (discovery, prioritisation, metrics), or mostly building skill?
@@ -86,8 +86,8 @@ See `CLAUDE.md` for the commands and rules.
 
 ## 12. Roadmap
 
-- **v1 (live):** structure, three featured prototypes with their pages, the Under development table, and the blog with three draft posts.
-- **Next:** demos and reflections for 001, 002 and 004, one at a time, and one blog post per prototype.
+- **v1 (live):** structure, two featured prototypes (009, 012) with their pages, the Under development table, and the blog with three draft posts.
+- **Next:** write-ups for 009 and 012; demos for 001, 002 and 004, each featured once it has one; one blog post per prototype.
 - **Later:** bring back Music and Art, then a custom domain.
 
 ## Running it

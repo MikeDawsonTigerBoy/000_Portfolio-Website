@@ -3,6 +3,9 @@
 // `hidden` sections (Art, Music) stay in the code but are left out of the deployed
 // site for the MVP (SCRUM-35): no nav link, no home card and no route. To work on
 // them locally, put VITE_SHOW_HIDDEN_SECTIONS=true in .env.local and restart `npm run dev`.
+
+import { featuredProjects } from './projects.js'
+
 export const sections = [
   {
     id: 'about',
@@ -19,7 +22,7 @@ export const sections = [
     title: 'Product',
     path: '/product',
     summary: 'AI product prototypes, from problem framing to working build.',
-    meta: '4 in development',
+    meta: `${featuredProjects.length} in development`,
     glyph: 'grid',
   },
   {

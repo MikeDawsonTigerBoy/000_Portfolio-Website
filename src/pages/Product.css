@@ -14,7 +14,8 @@
 
 .product__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Never more columns than cards, so two cards don't leave an empty dark cell */
+  grid-template-columns: repeat(var(--product-columns, 3), minmax(0, 1fr));
   gap: 1px;
   margin: 0;
   padding: 0;
