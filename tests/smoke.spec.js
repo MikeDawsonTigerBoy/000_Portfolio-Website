@@ -194,6 +194,8 @@ test('every prototype page has the standard sections', async ({ page }) => {
 })
 
 test('project 012 Mind Graft shows its deck, story, demo and blog post', async ({ page }, testInfo) => {
+  // The longest page on the site: its full-page screenshot takes 25–30s on CI runners (5s locally)
+  test.slow()
   await page.goto('/product/012')
   await expect(page.getByRole('heading', { level: 1, name: 'Mind Graft' })).toBeVisible()
   await expect(page.locator('.statement:not(.statement--empty)')).toHaveCount(8)
@@ -212,8 +214,10 @@ test('project 012 Mind Graft shows its deck, story, demo and blog post', async (
   await expect(page.locator('a.device-launch__button')).toHaveAttribute('href', '/mind-graft/index.html')
   await expectNoHorizontalScroll(page)
   await screenshot(page, testInfo, 'product-012')
+})
 
-  // The analyser is a static single-file app
+// Its own test, so loading the 600 KB three.js app doesn't share a time budget with the long page above
+test('the Mind Graft analyser loads as a static single-file app', async ({ page }) => {
   await page.goto('/mind-graft/index.html')
   await expect(page.getByRole('heading', { name: 'Language Analyser' })).toBeVisible()
 })
