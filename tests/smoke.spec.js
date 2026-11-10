@@ -69,6 +69,23 @@ test('about page lists email and LinkedIn contacts', async ({ page }, testInfo) 
   await screenshot(page, testInfo, 'about')
 })
 
+// Tool belt (SCRUM-5): Built with comes from the featured prototypes' stacks; About shows how Mike works
+test('tool belts show what the work is built with and how Mike works', async ({ page }) => {
+  await page.goto('/product')
+  const built = page.locator('section[aria-labelledby="product-built-title"]')
+  for (const name of ['JavaScript', 'Python', 'React', 'Three.js']) {
+    await expect(built.locator('.tool-belt__name', { hasText: name })).toHaveCount(1)
+  }
+  await expect(built.locator('.tool-belt__tile', { hasText: 'Python' })).toContainText('012')
+  await expect(page.locator('section[aria-labelledby="product-ai-title"]')).toContainText('Claude Code')
+
+  await page.goto('/about')
+  for (const [title, name] of [['about-ai-title', 'Claude Code'], ['about-work-title', 'Jira'], ['about-learning-title', 'MySQL']]) {
+    await expect(page.locator(`section[aria-labelledby="${title}"]`)).toContainText(name)
+  }
+  await expectNoHorizontalScroll(page)
+})
+
 test('blog folders open a post that slides up and closes back to the stack', async ({ page }, testInfo) => {
   await page.goto('/blog')
   await expect(page.locator('h1')).toContainText('Blog')
@@ -195,8 +212,12 @@ test('project 012 Mind Graft shows its deck, story, demo and blog post', async (
   await expect(page.locator('a.device-launch__button')).toHaveAttribute('href', '/mind-graft/index.html')
   await expectNoHorizontalScroll(page)
   await screenshot(page, testInfo, 'product-012')
+})
 
-  // The analyser is a static single-file app
+// Its own test, marked slow: the 600 KB three.js app renders its 3D scene on CI's software GPU and
+// takes 25–35s to load there (under 1s locally), more than the default 30s budget
+test('the Mind Graft analyser loads as a static single-file app', async ({ page }) => {
+  test.slow()
   await page.goto('/mind-graft/index.html')
   await expect(page.getByRole('heading', { name: 'Language Analyser' })).toBeVisible()
 })

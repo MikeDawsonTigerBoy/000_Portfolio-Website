@@ -66,6 +66,16 @@ Each project page (`/product/<number>`) shows:
 
 When adding a prototype to the site: fill in as many of these as exist, add a blog post with its `project` number, and add the page to the Playwright lists in `tests/smoke.spec.js` (the "standard sections" test and `WORD_PAGES`). Slide decks made as Claude Slides artifacts are exported with the prototype repo's `scripts/render_deck.py` (see 012 Mind Graft); keep place names out of the images, per the no-location rule.
 
+## Tool belt
+
+Logos and groups live in `src/data/tools.js` (single-colour Simple Icons paths, CC0). **Built with** on the Product page is drawn from each featured prototype's `stack` plus this site, so a tool appears only once shipped work uses it. Label it "Built with", never "Languages": Claude Code writes the code. When a prototype adds a new layer (a database, an agent framework), add the tool to `tools`, list it in that prototype's `stack` and remove it from `learningNext`.
+
+## Open follow-ups
+
+Raise these with Mike at the start of a session, then remove each one once its ticket is Done.
+
+- **SCRUM-63: create a diagram for each prototype** (the "How it works" section; 009 Air City still shows a placeholder).
+
 ## Testing on real devices
 
 Playwright runs on every PR, but check real phones before merging layout changes:

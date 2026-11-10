@@ -29,6 +29,7 @@ export const MAX_REFLECTIONS = 5
  *   reflections – up to 5 lessons learned building it
  *   diagram     – concept diagram that plays on hover (see components/diagrams); defaults to 'cube'
  *   event       – where it was built, e.g. a hackathon (shown in the spec table)
+ *   stack       – ids from src/data/tools.js; featured prototypes' stacks make up Built with on the Product page
  *
  * Standard page sections (every featured page shows all of them, in this order; any left out shows a
  * "to be written" placeholder, so a new prototype gets the full page automatically — see CLAUDE.md):
@@ -123,6 +124,7 @@ const rawProjects = [
       'Data analytics for urban ecosystems fighting the ongoing battle against short term rentals, housing crisis pressures and preserving human-centred urban life where it continues to exist.',
     // Built from the 009_Air_City repo (npm run build) and copied into public/air-city
     demoUrl: '/air-city/index.html',
+    stack: ['javascript', 'react', 'vite'],
   },
   {
     number: '010',
@@ -143,6 +145,7 @@ const rawProjects = [
       'Draws the shape of reasoning: human and LLM answers to the same question become 3D graphs you can orbit, so you can see whether an answer moves forward, branches or goes round in circles.',
     // Single-file three.js app, built from the 012_Mind-Graft repo (viewer/language_analyser.html) and copied here
     demoUrl: '/mind-graft/index.html',
+    stack: ['python', 'javascript', 'html', 'threejs'],
     statements: {
       why: 'We trust LLM answers because they sound fluent. Fluent is not the same as well reasoned, and nobody can see the shape of the reasoning behind an answer.',
       problem:

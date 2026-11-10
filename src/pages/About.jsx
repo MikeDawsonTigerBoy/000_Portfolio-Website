@@ -1,8 +1,10 @@
 import FitWords from '../components/FitWords.jsx'
 import Reveal from '../components/Reveal.jsx'
 import SectionHero from '../components/SectionHero.jsx'
+import ToolBelt from '../components/ToolBelt.jsx'
 import { contacts } from '../data/contact.js'
 import { sections } from '../data/sections.js'
+import { aiBuild, howIWork, learningNext } from '../data/tools.js'
 import './About.css'
 
 const section = sections.find((item) => item.id === 'about')
@@ -16,6 +18,13 @@ function About() {
           management.
         </p>
       </SectionHero>
+
+      <ToolBelt id="about-ai-title" title="AI build" meta="How the code gets written" items={aiBuild} />
+      <ToolBelt id="about-work-title" title="How I work" meta="Ticket to live site" items={howIWork}>
+        Every change follows the same path: a Jira ticket, a branch, automated tests on real phone
+        and desktop browsers, a preview link, review, then merge and deploy.
+      </ToolBelt>
+      <ToolBelt id="about-learning-title" title="Learning next" meta="Not yet in a shipped project" items={learningNext} />
 
       <section className="about container" aria-labelledby="about-contact-title">
         <div className="about__head mono">

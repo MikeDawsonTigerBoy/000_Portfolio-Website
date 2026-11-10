@@ -1,8 +1,10 @@
 import ProjectCard from '../components/ProjectCard.jsx'
 import Reveal from '../components/Reveal.jsx'
 import SectionHero from '../components/SectionHero.jsx'
+import ToolBelt from '../components/ToolBelt.jsx'
 import { featuredProjects, upcomingProjects } from '../data/projects.js'
 import { sections } from '../data/sections.js'
+import { aiBuild, builtWith } from '../data/tools.js'
 import './Product.css'
 
 const section = sections.find((item) => item.id === 'product')
@@ -30,6 +32,9 @@ function Product() {
           ))}
         </ul>
       </section>
+
+      <ToolBelt id="product-built-title" title="Built with" meta="In the prototypes and this site" items={builtWith} />
+      <ToolBelt id="product-ai-title" title="AI build" meta="How the code gets written" items={aiBuild} />
 
       <Reveal as="section" className="product-upcoming container" aria-labelledby="product-upcoming-title">
         <div className="product__head mono">
